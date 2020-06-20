@@ -12,7 +12,7 @@ class PuzzlePicker extends Component {
       query: '',
       pageNumber: 1,
       imgPic: '',
-      APIUrl: 'https://api.unsplash.com/photos/random?count=30&orientation=squarish&client_id=59YdVHKZo-81ca1K5uEu3Cj1n6io09GJjOg5nO6ZxGA'
+      APIUrl: 'https://api.unsplash.com/photos/random?count=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY'
     };
   }
 
@@ -50,7 +50,7 @@ class PuzzlePicker extends Component {
   }
 
   querySearch = (query) => {
-    let APIendpoint = `https://api.unsplash.com/search/photos?query=${query}&per_page=30&orientation=squarish&client_id=59YdVHKZo-81ca1K5uEu3Cj1n6io09GJjOg5nO6ZxGA`;
+    let APIendpoint = `https://api.unsplash.com/search/photos?query=${query}&per_page=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY`;
         // clear out existing articles
     this.setState({
       query: query,
