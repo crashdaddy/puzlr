@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import SearchForm from './SearchForm';
 import PopularSearches from './PopularSearches';
 import Paper from '@material-ui/core/Paper';
+import NoData from '../NoData/NoData';
 
 class PuzzlePicker extends Component {
   constructor(props) {
@@ -84,9 +85,10 @@ class PuzzlePicker extends Component {
   render() {
     let puzzleList = this.state.puzzlePix;
     return (
+      <div>
+      {puzzleList ? 
       <div className="puzzlePickerWrapper">
-
-        <SearchForm handleSubmit={this.handleSearch} handleChange={this.handleChange} query={this.props.query} />
+       <SearchForm handleSubmit={this.handleSearch} handleChange={this.handleChange} query={this.props.query} />
         <PopularSearches filterSearch={this.filterSearch} />
         <div style={{display:'inline-flex',width:'96%',margin:'20px auto',flexWrap: 'wrap'}}>
         {puzzleList.map((puzzle,idx) => <Paper key={idx} className="puzzlePickerDiv" >
@@ -96,6 +98,10 @@ class PuzzlePicker extends Component {
           <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p>
         </Paper>)}
         </div>
+      </div>
+      :
+      <NoData /> 
+      }
       </div>
     )
   }

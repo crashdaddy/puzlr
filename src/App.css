@@ -92,4 +92,11 @@ margin-bottom: 5px;
   margin:20px;
 }
 
-
+.noDataDiv {
+  width:50%;
+  margin: 100px auto;
+  text-align: center;
+  font-size: xx-large;
+  color: blue;
+  font-weight: bold;
+}
