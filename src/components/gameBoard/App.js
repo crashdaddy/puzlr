@@ -46,7 +46,7 @@ console.log(this.props.location.state)
       boardWidth: 4,
       boardHeight: 4,
       solve: false,
-      imgPic: this.props.location.state.puzzle.urls.raw+`&w=650&h=650`
+      imgPic: this.props.location.state.puzzle.urls.raw+`&w=600&h=600`
      };
   }
 
@@ -110,7 +110,7 @@ resetBoard = () => {
   
 
   render() {
-    let boardDim = Math.floor(this.state.picSize/this.state.boardWidth)*this.state.boardWidth;
+    let boardDim = this.state.picSize;
   return (
     <div className="App">
       <div className="sidePanel">
