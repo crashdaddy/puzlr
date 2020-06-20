@@ -38,7 +38,7 @@ function shuffle(array) {
  class App extends Component {
   constructor(props) {
     super(props);
-console.log(this.props.location.state)
+
     this.state = { 
       board: [],
       backgroundPos: [],
@@ -71,7 +71,6 @@ fetchImg = () => {
   }
 
   createBoard = () => {
-    console.log(this.state.imgPic);
     let board = [];
     let idxBoard = [];
     let boardWidth = this.state.boardWidth;

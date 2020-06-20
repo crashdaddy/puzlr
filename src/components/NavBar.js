@@ -40,7 +40,7 @@ export default function NavBar() {
           </Typography>
           <ul className="nav-list">
                     <li className="nav-list-item">
-                        {<Link className="nav-link" to="/">New Puzl</Link>}
+                        {<Link className="nav-link" to="/search">New Puzl</Link>}
                     </li>
                     <li className="nav-list-item">
                         {<Link className="nav-link" to="/">Login</Link>}

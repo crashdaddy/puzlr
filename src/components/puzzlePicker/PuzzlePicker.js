@@ -13,7 +13,7 @@ class PuzzlePicker extends Component {
       query: '',
       pageNumber: 1,
       imgPic: '',
-      APIUrl: 'https://api.unsplash.com/photos/random?count=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY'
+      APIUrl: ''
     };
   }
 
@@ -52,6 +52,13 @@ class PuzzlePicker extends Component {
 
   querySearch = (query) => {
     let APIendpoint = `https://api.unsplash.com/search/photos?query=${query}&per_page=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY`;
+
+    if (query.includes('user:')) {
+      query=query.substr(5).trim();
+      APIendpoint = `https://api.unsplash.com/users/${query}/photos?per_page=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY`;
+    } else if(query==='') {
+      APIendpoint = 'https://api.unsplash.com/photos/random?count=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY';
+    }
         // clear out existing articles
     this.setState({
       query: query,
@@ -64,7 +71,15 @@ class PuzzlePicker extends Component {
   }
 
   componentDidMount = () => {
-    this.fetchImg(this.state.APIUrl,this.state.pageNumber);
+    const { match: { params } } = this.props;
+    let query='';
+    if (params.query)  {
+      this.setState({
+        query: params.query
+      })
+      query=params.query
+    }
+     this.querySearch(query)
     window.addEventListener('scroll', this.infiniteScroll);
   }
  
@@ -74,11 +89,15 @@ class PuzzlePicker extends Component {
     fetch(imgUrl)
       .then(res => res.json())
       .then(data => {
-        let newData = data;
+        let newData = data;        
+        
         if (data.results) {newData=data.results}
         this.setState({
           puzzlePix: [...this.state.puzzlePix, ...newData]
         })
+      })
+      .catch(error => {
+        console.error(error);
       })
   }
 
