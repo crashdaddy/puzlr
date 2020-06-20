@@ -1,38 +1,95 @@
 .App {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  position: absolute;
+  top: 52px;
+  bottom:0;
+  background-color: white;
+  /* background: rgb(77,182,217);
+  background: linear-gradient(176deg, rgba(77,182,217,1) 0%, rgba(28,127,161,1) 49%, rgba(37,104,126,1) 100%);  */
+}
+
+.gameBoard {
+  background-color: white;
+  margin-top: 0px;
+  border:1px solid black;
+}
+
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom:0;
+  height: 12px;
+  font-size: xx-small;
+  color: goldenrod;
+  text-align: right;
+}
+
+.puzzlePickerWrapper {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin:70px auto;
+  width:95%;
+}
+
+.puzzlePickerDiv {
+  width:200px;
+  height: 350px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin:10px;
+  padding:10px;
+  background-color: white;
+  -webkit-box-shadow: 5px 5px 15px 5px #AEAEAE; 
+box-shadow: 5px 5px 15px 5px #AEAEAE;
+}
+
+.nav-list {
+  margin-top: 10px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-list-item {
+  margin: 0 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: x-large;
+  font-weight: bold;
+  color:white;
+  margin-top: 10px;
+}
+
+.searchResultsImg {
+  border: 2px solid sandybrown;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 15px 5px #AEAEAE; 
+box-shadow: 5px 5px 15px 5px #AEAEAE;
+margin-bottom: 5px;
+}
+
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.referencePic {
+  width: 250px;
+  border:2px solid rgb(219, 212, 212);
+  margin:20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
