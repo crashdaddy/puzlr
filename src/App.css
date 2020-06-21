@@ -35,13 +35,13 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin:70px auto;
+  margin:200px auto;
   width:95%;
 }
 
 .puzzlePickerDiv {
   width:200px;
-  height: 350px;
+  height: 300px;
   border: 2px solid black;
   border-radius: 5px;
   margin:10px;
@@ -76,6 +76,8 @@ box-shadow: 5px 5px 15px 5px #AEAEAE;
   -webkit-box-shadow: 5px 5px 15px 5px #AEAEAE; 
 box-shadow: 5px 5px 15px 5px #AEAEAE;
 margin-bottom: 5px;
+width: 150px;
+height: 150px;
 }
 
 .sidePanel {
@@ -88,6 +90,7 @@ margin-bottom: 5px;
 
 .referencePic {
   width: 250px;
+  height: 250px;
   border:2px solid rgb(219, 212, 212);
   margin:20px;
 }
@@ -99,4 +102,15 @@ margin-bottom: 5px;
   font-size: xx-large;
   color: blue;
   font-weight: bold;
+}
+
+.searchHeader {
+  width: 100%;
+  background-color: #fffffff0;
+  margin: 0px auto;
+  position: fixed;
+  top:60px;
+  text-align: center;
+  left: 50%;
+transform: translateX(-50%);
 }

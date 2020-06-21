@@ -39,6 +39,9 @@ class PuzzlePicker extends Component {
 
   // when they click the "popular searches" chips
   filterSearch = (searchTerm) => {
+    this.setState({
+      query: ''
+    })
     this.querySearch(searchTerm);
   }
 
@@ -54,8 +57,8 @@ class PuzzlePicker extends Component {
     let APIendpoint = `https://api.unsplash.com/search/photos?query=${query}&per_page=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY`;
 
     if (query.includes('user:')) {
-      query=query.substr(5).trim();
-      APIendpoint = `https://api.unsplash.com/users/${query}/photos?per_page=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY`;
+      let newquery=query.substr(5).trim();
+      APIendpoint = `https://api.unsplash.com/users/${newquery}/photos?per_page=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY`;
     } else if(query==='') {
       APIendpoint = 'https://api.unsplash.com/photos/random?count=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY';
     }
@@ -105,16 +108,18 @@ class PuzzlePicker extends Component {
     let puzzleList = this.state.puzzlePix;
     return (
       <div>
+      <div className="searchHeader">
+      <SearchForm handleSubmit={this.handleSearch} handleChange={this.handleChange} query={this.state.query} />
+      <PopularSearches filterSearch={this.filterSearch} />
+      </div>     
       {puzzleList ? 
       <div className="puzzlePickerWrapper">
-       <SearchForm handleSubmit={this.handleSearch} handleChange={this.handleChange} query={this.props.query} />
-        <PopularSearches filterSearch={this.filterSearch} />
         <div style={{display:'inline-flex',width:'96%',margin:'20px auto',flexWrap: 'wrap'}}>
         {puzzleList.map((puzzle,idx) => <Paper key={idx} className="puzzlePickerDiv" >
           <Link to={{ pathname: `/puzzle/${puzzle.id}`, state: { puzzle} }} ><img src={`${puzzle.urls.full}&w=150`} className="searchResultsImg" alt="" /></Link>
           <div style={{width:'90%',fontSize:'small',fontWeight:'bold',margin:'2px auto'}}>{puzzle.alt_description}</div>
           <i>Photo by: <a href={`${puzzle.user.links.html}?utm_source=puzzlr&utm_medium=referral`} target="blank"><strong>{puzzle.user.username}</strong></a> on <a href="https://unsplash.com/?utm_source=puzzlr&utm_medium=referral">Unsplash</a></i>
-          <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p>
+          {/* <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p> */}
         </Paper>)}
         </div>
       </div>
