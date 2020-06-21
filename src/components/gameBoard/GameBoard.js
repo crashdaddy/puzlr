@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Tile from './Tile';
-import {moveDown,moveLeft,moveRight,moveUp} from './Moves';
+import {moveDown,moveLeft,moveRight,moveUp,checkWin} from './Moves';
 
 
 class GameBoard extends Component {
@@ -9,21 +9,16 @@ class GameBoard extends Component {
     
     this.state = { 
       board: [],
-      backgroundPos: [],
+      backgroundPos: this.props.solvedBoard,
       firstClick: false,
+      selectedTile: '',
+      cheatMode: true,
       clickedRow: '',
       clickedCol: ''
      };
   }
 
-    clearClicks = () => {
-      this.setState({
-        firstClick: false,
-        clickedRow:'',
-        clickedCol: ''
-      })
-    }
-
+    
     checkFirstClick = (clickedTile,id) => {
 
       if (this.state.firstClick) {
@@ -32,7 +27,8 @@ class GameBoard extends Component {
          if (rowCol[0]>this.state.clickedRow) {moveDown(id,this.props.width)};
          if (rowCol[1]>this.state.clickedCol) {moveRight(id,this.props.width)};
          if (rowCol[1]<this.state.clickedCol) {moveLeft(id,this.props.width)};
-         this.clearClicks()
+         this.clearAll();
+       
       } else {
         let rowCol=id.split('-');
         this.setState({
@@ -40,15 +36,35 @@ class GameBoard extends Component {
           clickedRow: rowCol[0],
           clickedCol: rowCol[1]
         })
-        console.log("First click!",rowCol[0]+'-'+rowCol[1]);
       }
+      // if (checkWin( this.props.width, this.state.cheatMode,this.props.solvedBoard)) {
+      //   console.log("You Won!!!");
+      // } else {console.log("just checking for a win")}
+    }
+
+    clearAll = () => {
+      let stateBoard = this.props.board;
+
+      stateBoard.forEach(tile => {
+        tile.selected=false;
+      })
+      this.setState({
+        firstClick: false,
+        selectedTile: '',
+        clickedRow:'',
+        clickedCol: ''
+      })
     }
 
     clearSelected = (clickedTile,id) => {
       let stateBoard = this.props.board;
       
       stateBoard.forEach(tile => {
-        if (tile.tile===clickedTile) {tile.selected=!tile.selected} else
+        if (tile.tile===clickedTile) {tile.selected=!tile.selected
+          this.setState({
+            selectedTile: id
+          })
+        } else
         tile.selected=false;
       })
       this.setState({
@@ -57,11 +73,18 @@ class GameBoard extends Component {
       this.checkFirstClick(clickedTile,id);
     }
 
-   render() {
+   componentDidUpdate =() => {
+    if (checkWin( this.props.width, this.state.cheatMode,this.props.solvedBoard,this.state.selectedTile)){
+      console.log("you win")
+    }
     
+   }
+
+   render() {
+     
       return(
         <div>
-          {this.props.board.map((tile,idx) => <Tile id={this.props.indexBoard[idx]} key={idx} tile={tile.tile} size={tile.size} bgImg={this.props.bgImg} pos={tile.pos} numberPosition={tile.numberPosition} selected={tile.selected} clearSelected={()=>this.clearSelected(tile.tile,this.props.indexBoard[idx])} />)}
+          {this.props.board.map((tile,idx) => <Tile className="tile" id={this.props.indexBoard[idx]} key={idx} tile={tile.tile} size={tile.size} bgImg={this.props.bgImg} pos={tile.pos} numberPosition={tile.numberPosition} selected={tile.selected} clearSelected={()=>this.clearSelected(tile.tile,this.props.indexBoard[idx])} />)}
         </div>
       )
     }

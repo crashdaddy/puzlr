@@ -11,7 +11,7 @@ class PopularSearches extends Component {
 
     render() {
         let popularSearches = ['technology','architecture','fantasy','music','abstract','space','cat',
-        'nature','landscape','microscopic','downtown','urban','travel','religion','girl']
+        'nature','landscape','microscopic','downtown','urban','travel','religion','girl','aerial','wildlife']
         let chipsArray = [];
         for (let i=0;i<7;i++){
             chipsArray.push(popularSearches[randomIntBetween(0,popularSearches.length-1)])

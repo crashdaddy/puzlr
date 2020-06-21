@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import BoardSizer from './BoardSizer';
 import GameBoard from './GameBoard';
 import RightPanel from './RightPanel';
+import LeftPanel from './LeftPanel';
 import '../../App.css';
 import NoData from '../NoData/NoData';
 
@@ -115,12 +115,9 @@ resetBoard = () => {
     <div>
       {this.props.location.state.puzzle ? 
       <div  className="App">
-      <div className="sidePanel">
-        <img className="referencePic" src={this.props.location.state.puzzle.urls.small} alt='' />
-        <div><button onClick={this.resetBoard} >Solve</button></div>
-        <BoardSizer changeBoardSize={this.changeBoardSize} /></div>
+      <LeftPanel referenceImage={this.props.location.state.puzzle.urls.small} resetBoard={this.resetBoard} />
       <div className="gameBoard" style={{width:`${boardDim}px`,height:`${boardDim}px`}}>
-      <GameBoard indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} solve={this.state.solve}/>   
+      <GameBoard indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} solve={this.state.solve}/>   
       </div>
       <RightPanel authorObject={this.props.location.state.puzzle.user} />
       </div>

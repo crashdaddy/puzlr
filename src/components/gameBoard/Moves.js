@@ -75,4 +75,46 @@ const moveDown = (rowCol,width) => {
       $(`#0-${col}`).css('background-position',tempPOS);
   }
 
-  export {moveDown,moveLeft,moveRight,moveUp}
+  // check to see if all the tiles are in their correct places
+// also highlights correct tiles if in "cheatMode"
+const checkWin = (width,cheatMode,bgPos, selectedTile) => {
+    let won = true;
+    let counter= 0;
+    let boardHeight=width;
+    let boardWidth = width;
+    let redCounter=0;
+    
+        // unhighlight all the cells
+        $(".tile").css('border','1px solid black');
+
+    for (let i=0;i<boardWidth;i++) {
+        for (let j=0;j<boardHeight;j++) {
+            let boardPos = $(`#${i}-${j}`).css('background-position');
+            // parse the coordinates of the tile's portion of the picture
+            let strippedBoardPos = boardPos.replace(/-/g,'')
+            // get the corresponding section of the correct image
+            let strippedBGPos = bgPos[counter].pos.replace(/-/g,'');
+            // compare the tile's background to what the correct background should be
+            if(strippedBGPos !== strippedBoardPos) {
+                won = false;
+                redCounter++;
+                if (cheatMode) {
+                    $(`#${i}-${j}`).css('border','1px solid red');
+                }
+            } else  $(`#${i}-${j}`).css('border','1px solid black');
+            counter++;
+            if (selectedTile===`${i}-${j}`) {
+                $(`#${i}-${j}`).css('border','1px solid white');
+            }
+        }
+    }
+
+       // calculate percentage solved (100% - redTiles%)
+       let boardTiles = boardWidth * boardHeight;
+       let redPercent = redCounter/boardTiles * 100;
+       let solvedPercent = 100-redPercent;
+    //    $("#percentComplete").html(solvedPercent.toFixed(2));
+       return won;
+}
+
+  export {moveDown,moveLeft,moveRight,moveUp, checkWin}
