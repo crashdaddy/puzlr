@@ -40,6 +40,8 @@ function shuffle(array) {
     super(props);
 
     this.state = { 
+      gameOver: false,
+      moves: 0,
       board: [],
       backgroundPos: [],
       indexBoard: [],
@@ -55,6 +57,19 @@ componentDidMount =() => {
 
   this.fetchImg();
   this.createBoard();
+}
+
+countMove =() => {
+  let moves=this.state.moves + 1;
+  this.setState({
+    moves: moves
+  })
+}
+
+gameOver = () => {
+  this.setState({
+    gameOver: true
+  })
 }
 
 changeBoardSize =(newSize) => {
@@ -115,9 +130,9 @@ resetBoard = () => {
     <div>
       {this.props.location.state.puzzle ? 
       <div  className="App">
-      <LeftPanel referenceImage={this.props.location.state.puzzle.urls.small} resetBoard={this.resetBoard} />
+      <LeftPanel moves={this.state.moves} referenceImage={this.props.location.state.puzzle.urls.small} resetBoard={this.resetBoard} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
       <div className="gameBoard" style={{width:`${boardDim}px`,height:`${boardDim}px`}}>
-      <GameBoard indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} solve={this.state.solve}/>   
+      <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} solve={this.state.solve}/>   
       </div>
       <RightPanel authorObject={this.props.location.state.puzzle.user} />
       </div>

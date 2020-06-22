@@ -9,6 +9,7 @@ class GameBoard extends Component {
     
     this.state = { 
       board: [],
+      gameOver: false,
       backgroundPos: this.props.solvedBoard,
       firstClick: false,
       selectedTile: '',
@@ -19,16 +20,20 @@ class GameBoard extends Component {
   }
 
     
-    checkFirstClick = (clickedTile,id) => {
+    checkFirstClick = (id) => {
 
       if (this.state.firstClick) {
          let rowCol=id.split('-');
-         if (rowCol[0]<this.state.clickedRow) {moveUp(id,this.props.width)};
-         if (rowCol[0]>this.state.clickedRow) {moveDown(id,this.props.width)};
-         if (rowCol[1]>this.state.clickedCol) {moveRight(id,this.props.width)};
-         if (rowCol[1]<this.state.clickedCol) {moveLeft(id,this.props.width)};
+         if (rowCol[0]<this.state.clickedRow) {moveUp(id,this.props.width);
+           this.props.countMove();};
+         if (rowCol[0]>this.state.clickedRow) {moveDown(id,this.props.width);
+          this.props.countMove();};
+         if (rowCol[1]>this.state.clickedCol) {moveRight(id,this.props.width);
+          this.props.countMove();};
+         if (rowCol[1]<this.state.clickedCol) {moveLeft(id,this.props.width);
+          this.props.countMove();};
          this.clearAll();
-       
+         
       } else {
         let rowCol=id.split('-');
         this.setState({
@@ -37,9 +42,13 @@ class GameBoard extends Component {
           clickedCol: rowCol[1]
         })
       }
-      // if (checkWin( this.props.width, this.state.cheatMode,this.props.solvedBoard)) {
-      //   console.log("You Won!!!");
-      // } else {console.log("just checking for a win")}
+      if (checkWin( this.props.width, this.state.cheatMode,this.props.solvedBoard,this.state.selectedTile)){
+        console.log("you win")
+        this.setState({
+          gameOver: true
+        })
+        this.props.gameOver();
+      }   
     }
 
     clearAll = () => {
@@ -70,14 +79,11 @@ class GameBoard extends Component {
       this.setState({
         board: stateBoard
       })
-      this.checkFirstClick(clickedTile,id);
+      this.checkFirstClick(id);
     }
 
    componentDidUpdate =() => {
-    if (checkWin( this.props.width, this.state.cheatMode,this.props.solvedBoard,this.state.selectedTile)){
-      console.log("you win")
-    }
-    
+      checkWin( this.props.width, this.state.cheatMode,this.props.solvedBoard,this.state.selectedTile)
    }
 
    render() {
