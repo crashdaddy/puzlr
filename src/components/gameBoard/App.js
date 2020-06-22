@@ -99,8 +99,14 @@ fetchImg = () => {
   let tempImg = new Image();
   let imgUrl=this.state.imgPic
   if(!this.props.location.state){
-  let photoID = this.props.match.params.id
-  fetch(`https://api.unsplash.com/photos/${photoID}?client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY&w=600&h=600`)
+  let photoID = this.props.match.params.id;
+  
+  let photoUrl = `https://api.unsplash.com/photos/${photoID}?client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY&w=600&h=600`
+  if (!photoID){
+    photoUrl=`https://api.unsplash.com/photos/random?client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY&w=600&h=600`
+  }
+  console.log(photoUrl)
+  fetch(photoUrl)
   .then(res=>res.json())
     .then((data) => {
       console.log(photoID);
