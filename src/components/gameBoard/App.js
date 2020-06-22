@@ -68,19 +68,16 @@ countMove =() => {
   this.setState({
     moves: moves
   })
-  if(checkWin(this.state.boardWidth,this.state.cheatMode,this.state.backgroundPos)){
-    this.setState({
-      gameOver: true
-    })
-  }
-  
-  ;
-}
+ }
 
 toggleCheat = () => {
   this.setState({
     cheatMode: !this.state.cheatMode
-  })
+  },()=>{ if(checkWin(this.state.boardWidth,this.state.cheatMode,this.state.backgroundPos)){
+    this.setState({
+      gameOver: true
+    })
+  }})
 }
 
 gameOver = () => {

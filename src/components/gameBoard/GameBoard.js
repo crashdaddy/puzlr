@@ -40,10 +40,10 @@ class GameBoard extends Component {
           clickedCol: rowCol[1]
         })
       }
-      // if (checkWin( this.props.width, this.props.cheatMode,this.props.solvedBoard)){
-      //   console.log("you win")
-      //   this.props.gameOver();
-      // }   
+      if (checkWin( this.props.width, this.props.cheatMode,this.props.solvedBoard)){
+        console.log("you win")
+        this.props.gameOver();
+      }   
     }
 
     clearAll = () => {

@@ -13,7 +13,6 @@ class LeftPanel extends Component {
         return(
         <div className="sidePanel">
         <img className="referencePic" src={this.props.referenceImage} alt='' />
-        <div><button onClick={this.props.resetBoard} >Solve</button></div>
         <div><CheatModeIcon onClick={this.props.toggleCheat} color={cheatStyle}/></div>
         <BoardSizer changeBoardSize={this.props.changeBoardSize} />
         {this.props.gameOver ? <div style={{fontSize:'x-large'}}>You Win!</div> 
