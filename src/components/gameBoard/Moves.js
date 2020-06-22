@@ -77,7 +77,7 @@ const moveDown = (rowCol,width) => {
 
   // check to see if all the tiles are in their correct places
 // also highlights correct tiles if in "cheatMode"
-const checkWin = (width,cheatMode,bgPos, selectedTile) => {
+const checkWin = (width,cheatMode,bgPos) => {
     let won = true;
     let counter= 0;
     let boardHeight=width;
@@ -95,17 +95,18 @@ const checkWin = (width,cheatMode,bgPos, selectedTile) => {
             // get the corresponding section of the correct image
             let strippedBGPos = bgPos[counter].pos.replace(/-/g,'');
             // compare the tile's background to what the correct background should be
+            $(`#${i}-${j}`).css('border','1px solid black');
             if(strippedBGPos !== strippedBoardPos) {
                 won = false;
                 redCounter++;
                 if (cheatMode) {
                     $(`#${i}-${j}`).css('border','1px solid red');
                 }
-            } else  $(`#${i}-${j}`).css('border','1px solid black');
+            }  
             counter++;
-            if (selectedTile===`${i}-${j}`) {
-                $(`#${i}-${j}`).css('border','1px solid white');
-            }
+            // if (selectedTile===`${i}-${j}`) {
+            //     $(`#${i}-${j}`).css('border','1px solid white');
+            // }
         }
     }
 

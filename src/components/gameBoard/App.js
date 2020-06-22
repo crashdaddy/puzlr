@@ -4,6 +4,8 @@ import RightPanel from './RightPanel';
 import LeftPanel from './LeftPanel';
 import '../../App.css';
 import NoData from '../NoData/NoData';
+import {checkWin} from './Moves';
+
 
 
 function Footer() {
@@ -41,6 +43,7 @@ function shuffle(array) {
 
     this.state = { 
       gameOver: false,
+      cheatMode: false,
       moves: 0,
       board: [],
       backgroundPos: [],
@@ -57,12 +60,26 @@ componentDidMount =() => {
 
   this.fetchImg();
   this.createBoard();
+
 }
 
 countMove =() => {
   let moves=this.state.moves + 1;
   this.setState({
     moves: moves
+  })
+  if(checkWin(this.state.boardWidth,this.state.cheatMode,this.state.backgroundPos)){
+    this.setState({
+      gameOver: true
+    })
+  }
+  
+  ;
+}
+
+toggleCheat = () => {
+  this.setState({
+    cheatMode: !this.state.cheatMode
   })
 }
 
@@ -116,13 +133,7 @@ fetchImg = () => {
  //   return board;
 }
 
-resetBoard = () => {
-  let solvedBoard = this.state.backgroundPos
-    this.setState({
-      board: solvedBoard
-    })
-}
-  
+ 
 
   render() {
     let boardDim = this.state.picSize;
@@ -130,9 +141,9 @@ resetBoard = () => {
     <div>
       {this.props.location.state.puzzle ? 
       <div  className="App">
-      <LeftPanel moves={this.state.moves} referenceImage={this.props.location.state.puzzle.urls.small} resetBoard={this.resetBoard} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
+      <LeftPanel moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.props.location.state.puzzle.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
       <div className="gameBoard" style={{width:`${boardDim}px`,height:`${boardDim}px`}}>
-      <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} solve={this.state.solve}/>   
+      <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} solve={this.state.solve}/>   
       </div>
       <RightPanel authorObject={this.props.location.state.puzzle.user} />
       </div>

@@ -9,11 +9,9 @@ class GameBoard extends Component {
     
     this.state = { 
       board: [],
-      gameOver: false,
       backgroundPos: this.props.solvedBoard,
       firstClick: false,
       selectedTile: '',
-      cheatMode: true,
       clickedRow: '',
       clickedCol: ''
      };
@@ -42,13 +40,10 @@ class GameBoard extends Component {
           clickedCol: rowCol[1]
         })
       }
-      if (checkWin( this.props.width, this.state.cheatMode,this.props.solvedBoard,this.state.selectedTile)){
-        console.log("you win")
-        this.setState({
-          gameOver: true
-        })
-        this.props.gameOver();
-      }   
+      // if (checkWin( this.props.width, this.props.cheatMode,this.props.solvedBoard)){
+      //   console.log("you win")
+      //   this.props.gameOver();
+      // }   
     }
 
     clearAll = () => {
@@ -81,11 +76,7 @@ class GameBoard extends Component {
       })
       this.checkFirstClick(id);
     }
-
-   componentDidUpdate =() => {
-      checkWin( this.props.width, this.state.cheatMode,this.props.solvedBoard,this.state.selectedTile)
-   }
-
+ 
    render() {
      
       return(
