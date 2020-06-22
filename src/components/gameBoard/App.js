@@ -52,7 +52,8 @@ function shuffle(array) {
       boardWidth: 4,
       boardHeight: 4,
       solve: false,
-      imgPic: this.props.location.state.puzzle.urls.raw+`&w=600&h=600`
+      imgPic: '',
+      authorObject: ''
      };
   }
 
@@ -95,9 +96,28 @@ changeBoardSize =(newSize) => {
 }
 
 fetchImg = () => {
-    let tempImg = new Image();
-    tempImg.src= this.state.imgPic;   //'https://source.unsplash.com/random/600x600';
+  let tempImg = new Image();
+  let imgUrl=this.state.imgPic
+  if(!this.props.location.state){
+  let photoID = this.props.match.params.id
+  fetch(`https://api.unsplash.com/photos/${photoID}?client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY&w=600&h=600`)
+  .then(res=>res.json())
+    .then((data) => {
+      console.log(photoID);
+      this.setState({
+        imgPic: data.urls.raw,
+        authorObject: data
+    })
+    imgUrl=data.urls.raw;
+    })
+  } else {
+    this.setState({
+      authorObject: this.props.location.state.puzzle,
+      imgPic : this.props.location.state.puzzle.urls.raw+`&w=600&h=600`,
+    })
   }
+tempImg.src= imgUrl;   //'https://source.unsplash.com/random/600x600';
+}
 
   createBoard = () => {
     let board = [];
@@ -136,13 +156,13 @@ fetchImg = () => {
     let boardDim = this.state.picSize;
   return (
     <div>
-      {this.props.location.state.puzzle ? 
+      {this.state.authorObject ? 
       <div  className="App">
-      <LeftPanel moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.props.location.state.puzzle.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
+      <LeftPanel moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.imgPic} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
       <div className="gameBoard" style={{width:`${boardDim}px`,height:`${boardDim}px`}}>
       <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} solve={this.state.solve}/>   
       </div>
-      <RightPanel authorObject={this.props.location.state.puzzle.user} />
+      <RightPanel authorObject={this.state.authorObject.user} />
       </div>
       :
       <NoData /> 
