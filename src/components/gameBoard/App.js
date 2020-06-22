@@ -164,7 +164,7 @@ tempImg.src= imgUrl;   //'https://source.unsplash.com/random/600x600';
     <div>
       {this.state.authorObject ? 
       <div  className="App">
-      <LeftPanel moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.imgPic} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
+      <LeftPanel moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
       <div className="gameBoard" style={{width:`${boardDim}px`,height:`${boardDim}px`}}>
       <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} solve={this.state.solve}/>   
       </div>

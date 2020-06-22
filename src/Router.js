@@ -10,7 +10,7 @@ const Router = () => {
             <Route exact path ="/" component={PuzzlePicker} />
             <Route path="/search/:query?" component={PuzzlePicker} />
             {/* <Route path="/about" component={About} /> */}
-            <Route path="/puzzle/:id?" component={App} />
+            <Route path="/puzzle/:id?" render={(props) => <App {...props} key={Date.now()}/>}/>
         </Switch>
     )
 }

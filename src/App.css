@@ -92,7 +92,7 @@ height: 150px;
   width: 250px;
   height: 250px;
   border:2px solid rgb(219, 212, 212);
-  margin:20px;
+  margin:0px auto;
 }
 
 .noDataDiv {

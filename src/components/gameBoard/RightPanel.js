@@ -7,9 +7,10 @@ class RightPanel extends Component {
     render() {
         return(
             <div className="sidePanel">
-            <div style={{fontSize:'large',fontWeight:'bold'}}>Photo Provided by:</div>
+            <div style={{fontSize:'large',fontWeight:'bold'}}>Photo Provided by:<br/>
             <img className="referencePic" src={this.props.authorObject.profile_image.large} alt=''  />
             <div style={{fontSize:'24px',fontWeight:'bold'}}><a href = {`/search/user:${this.props.authorObject.username}`} >{this.props.authorObject.username}</a></div>
+            </div>
             <div style={{fontSize:"small",maxWidth:'300px'}}>{this.props.authorObject.bio}</div>
             <div className="contactIcons">
              <a href={`${this.props.authorObject.links.html}`} target="blank" >
