@@ -90,7 +90,12 @@ class PuzzlePicker extends Component {
   fetchImg = (searchURL,page) => {
     let imgUrl = searchURL + `&page=${page}`;
     fetch(imgUrl)
-      .then(res => res.json())
+      .then(function(response) {
+        if (!response.ok) {
+            throw new Error("HTTP status " + response.status);
+        }
+        return response.json();
+    })
       .then(data => {
         let newData = data;        
         
@@ -100,7 +105,9 @@ class PuzzlePicker extends Component {
         })
       })
       .catch(error => {
-        console.error(error);
+        this.setState({
+          puzzlePix: null
+        })
       })
   }
 
@@ -108,14 +115,15 @@ class PuzzlePicker extends Component {
     let puzzleList = this.state.puzzlePix;
     return (
       <div>
+ 
+      {puzzleList ? 
+      <div className="puzzlePickerWrapper"> 
       <div className="searchHeader">
       <SearchForm handleSubmit={this.handleSearch} handleChange={this.handleChange} query={this.state.query} />
       <PopularSearches filterSearch={this.filterSearch} />
       </div>     
-      {puzzleList ? 
-      <div className="puzzlePickerWrapper">
         <div style={{display:'inline-flex',width:'96%',margin:'20px auto',flexWrap: 'wrap'}}>
-        {puzzleList.map((puzzle,idx) => <Paper key={idx} className="puzzlePickerDiv" >
+        {puzzleList.map((puzzle,idx) => <Paper key={idx} className="puzzlePickerDiv" elevation={3} >
           <Link to={{ pathname: `/puzzle/${puzzle.id}`, state: { puzzle} }} ><img src={`${puzzle.urls.full}&w=150`} className="searchResultsImg" alt="" /></Link>
           <div style={{width:'90%',fontSize:'small',fontWeight:'bold',margin:'2px auto'}}>{puzzle.alt_description}</div>
           <i>Photo by: <a href={`${puzzle.user.links.html}?utm_source=puzzlr&utm_medium=referral`} target="blank"><strong>{puzzle.user.username}</strong></a> on <a href="https://unsplash.com/?utm_source=puzzlr&utm_medium=referral">Unsplash</a></i>

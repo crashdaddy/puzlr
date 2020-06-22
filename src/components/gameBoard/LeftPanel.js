@@ -15,7 +15,7 @@ class LeftPanel extends Component {
         <img className="referencePic" src={this.props.referenceImage} alt='' />
         <div><CheatModeIcon onClick={this.props.toggleCheat} color={cheatStyle}/></div>
         <BoardSizer changeBoardSize={this.props.changeBoardSize} />
-        {this.props.gameOver ? <div style={{fontSize:'x-large'}}>You Win!</div> 
+        {this.props.gameOver ? <div style={{fontSize:'x-large'}}>You win in {this.props.moves} moves!</div> 
     :
     <div style={{fontSize:'x-large'}}>Moves: {this.props.moves}</div>
     }
