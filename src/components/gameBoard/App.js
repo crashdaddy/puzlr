@@ -58,7 +58,6 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.props.addUser({"playerId":23,"playerName":"crashdaddy!"})
     this.fetchImg();
     this.createBoard();
 }

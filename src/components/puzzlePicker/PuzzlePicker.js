@@ -49,7 +49,7 @@ class PuzzlePicker extends Component {
   puzzlePick = (ev) => {
     let selectedPuzzle = this.state.puzzlePix.find(puzzle => puzzle.id === ev.target.id)
     this.props.addPuzzle(selectedPuzzle)
-    window.location.href = `/puzzle/${selectedPuzzle.id}`;
+    this.props.history.push(`/puzzle/${selectedPuzzle.id}`);
   }
 
   // when user types something into the search bar

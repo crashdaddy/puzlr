@@ -1,7 +1,4 @@
 export default {
-    player: {
-        playerId: null,
-        playerName: ''
-    },
+    player: null,
     puzzle: null
   };

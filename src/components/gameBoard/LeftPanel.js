@@ -8,10 +8,14 @@ class LeftPanel extends Component {
 
 
     render() {
-
         return (
             <div className="sidePanel">
-                Hi, {this.props.player.playerName}
+                {this.props.player ?
+                    <div>Hi, {this.props.player.userName}!</div>
+                    :
+                    <div>You are not <a href="/login">logged in</a></div>
+                }
+                
                 <img className="referencePic" src={this.props.referenceImage} alt='' />
                 <div>
                     {this.props.cheatMode ?

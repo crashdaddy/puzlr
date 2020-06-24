@@ -49,7 +49,7 @@ export default function NavBar() {
                         {<Link className="nav-link" to="/search"><ImageSearchIcon style={{color:"#ffffff"}}/></Link>}
                     </li>
                     <li className="nav-list-item">
-                        {<Link className="nav-link" to="/"><LoginIcon style={{color:"#ffffff"}} /></Link>}
+                        {<Link className="nav-link" to="/login"><LoginIcon style={{color:"#ffffff"}} /></Link>}
                     </li>
                 </ul>
         </Toolbar>
