@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import SearchForm from './SearchForm';
 import PopularSearches from './PopularSearches';
 import Paper from '@material-ui/core/Paper';

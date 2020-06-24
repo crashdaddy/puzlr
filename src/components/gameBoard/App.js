@@ -6,6 +6,7 @@ import '../../App.css';
 import NoData from '../NoData/NoData';
 import { checkWin } from './Moves';
 
+const clientID = "kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY";
 
 function Footer() {
 
@@ -60,6 +61,16 @@ class App extends Component {
   componentDidMount = () => {
     this.fetchImg();
     this.createBoard();
+}
+
+triggerDownload = (downloadLocation) => {
+  downloadLocation += `?client_id=${clientID}`;
+
+  fetch(downloadLocation)
+  .then(res => res.json())
+   .then(data=> {
+     console.log("Download Triggered:", data);
+   })
 }
 
   // add/remove favorites API
@@ -172,10 +183,9 @@ class App extends Component {
     let imgUrl = this.state.imgPic
     if (!this.props.puzzle) {
       let photoID = this.props.match.params.id;
-
-      let photoUrl = `https://api.unsplash.com/photos/${photoID}?client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY&w=600&h=600`
+      let photoUrl = `https://api.unsplash.com/photos/${photoID}?client_id=${clientID}&w=600&h=600`
       if (!photoID) {
-        photoUrl = `https://api.unsplash.com/photos/random?client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY&w=600&h=600`
+        photoUrl = `https://api.unsplash.com/photos/random?client_id=${clientID}&w=600&h=600`
       }
       fetch(photoUrl)
         .then(res => res.json())
@@ -185,17 +195,19 @@ class App extends Component {
             puzzleId: data.id,
             imgPic: data.urls.raw,
             authorObject: data
-          })
+          }); 
+          this.triggerDownload(data.links.download_location);
           imgUrl = data.urls.raw;
         })
     } else {
-      this.setState({
+        this.setState({
         puzzleId: this.props.puzzle.id,
         authorObject: this.props.puzzle,
         imgPic: this.props.puzzle.urls.raw + `&w=600&h=600`,
       })
+      this.triggerDownload(this.props.puzzle.links.download_location);
     }
-    tempImg.src = imgUrl;   //'https://source.unsplash.com/random/600x600';
+    tempImg.src = imgUrl;   
   }
 
   createBoard = () => {
