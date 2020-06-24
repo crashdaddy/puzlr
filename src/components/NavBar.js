@@ -9,7 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import RandomIcon from '@material-ui/icons/AllInclusive';
 import ImageSearchIcon from '@material-ui/icons/ImageSearchTwoTone';
 import LoginIcon from '@material-ui/icons/LockOpenTwoTone';
-import { orange } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,13 +43,13 @@ export default function NavBar() {
           </Typography>
           <ul className="nav-list">
                     <li className="nav-list-item">
-                        {<Link className="nav-link" to="/puzzle/"><RandomIcon color="active"/></Link>}
+                        {<Link className="nav-link" to="/puzzle/"><RandomIcon style={{color:"#ffffff"}}/></Link>}
                     </li>
                     <li className="nav-list-item">
-                        {<Link className="nav-link" to="/search"><ImageSearchIcon color="active"/></Link>}
+                        {<Link className="nav-link" to="/search"><ImageSearchIcon style={{color:"#ffffff"}}/></Link>}
                     </li>
                     <li className="nav-list-item">
-                        {<Link className="nav-link" to="/"><LoginIcon color="active" /></Link>}
+                        {<Link className="nav-link" to="/"><LoginIcon style={{color:"#ffffff"}} /></Link>}
                     </li>
                 </ul>
         </Toolbar>

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BoardSizer({changeBoardSize}) {
+export default function BoardSizer({ changeBoardSize }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     boardWidth: '4',
@@ -48,7 +48,7 @@ export default function BoardSizer({changeBoardSize}) {
           <option value={9}>9x9</option>
         </Select>
       </FormControl>
-       
+
     </div>
   );
 }

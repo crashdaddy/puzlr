@@ -1,8 +1,8 @@
 import React from 'react'
 import { Switch, Route } from 'react-router';
 // import About from './components/About'
-import App from './components/gameBoard/App';
-import PuzzlePicker from './components/puzzlePicker/PuzzlePicker';
+import App from './containers/App';
+import PuzzlePicker from './containers/PuzzlePicker';
 
 const Router = () => {
     return (

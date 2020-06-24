@@ -52,7 +52,7 @@ box-shadow: 5px 5px 15px 5px #AEAEAE; */
 }
 
 .nav-list {
-  margin-top: 10px;
+  margin-top: 14px;
   list-style: none;
   display: flex;
   align-items: center;
@@ -67,7 +67,7 @@ box-shadow: 5px 5px 15px 5px #AEAEAE; */
   font-size: x-large;
   font-weight: bold;
   color:white;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .searchResultsImg {
