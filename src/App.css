@@ -40,15 +40,18 @@
 }
 
 .puzzlePickerDiv {
-  width:200px;
-  height: 300px;
-  /* border: 2px solid black; */
+  width:220px;
+  height: 350px;
   border-radius: 5px;
-  margin:10px;
-  padding:10px;
-  /* background-color: white;
-  -webkit-box-shadow: 5px 5px 15px 5px #AEAEAE; 
-box-shadow: 5px 5px 15px 5px #AEAEAE; */
+  margin:15px;
+}
+
+.puzzlePickerResultsLayout {
+  display: inline-flex; 
+  width: 98%;
+  margin: 10px auto;
+  flex-Wrap: wrap;
+  justify-content: center; 
 }
 
 .nav-list {
@@ -71,13 +74,13 @@ box-shadow: 5px 5px 15px 5px #AEAEAE; */
 }
 
 .searchResultsImg {
-  border: 2px solid rgb(245, 165, 16);
-  border-radius: 5px;
+  /* border: 2px solid rgb(245, 165, 16);
+  border-radius: 5px; */
   /* -webkit-box-shadow: 5px 5px 5px 5px #AEAEAE; 
 box-shadow: 5px 5px 5px 5px #AEAEAE; */
 margin-bottom: 5px;
-width: 150px;
-height: 150px;
+width: 100%;
+height: 220px;
 }
 
 .sidePanel {

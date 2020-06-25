@@ -42,6 +42,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      timestamp:'',
       gameOver: false,
       cheatMode: false,
       moves: 0,
@@ -59,6 +60,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+   
     this.fetchImg();
     this.createBoard();
 }
@@ -78,7 +80,7 @@ triggerDownload = (downloadLocation) => {
     let addFaveUrl = "https://puzzlrapi.herokuapp.com/addToFaves";
 
     let newFave = {
-      "id": this.props.player.playerId,
+      "id": this.props.player.id,
       "puzzleUrl": this.state.imgPic,
       "puzzleID": this.state.puzzleId,
       "author": this.state.authorObject.user.username,
@@ -135,6 +137,7 @@ triggerDownload = (downloadLocation) => {
 
 
   toggleFavorite = () => {
+    if(this.props.player){
     if (this.state.favorite === false) {
       this.addFave();
     } else {
@@ -142,7 +145,8 @@ triggerDownload = (downloadLocation) => {
     }
     this.setState({
       favorite: !this.state.favorite
-    })
+    })}
+    else console.log("you're not logged in, sucka")
   }
 
   countMove = () => {
@@ -184,7 +188,7 @@ triggerDownload = (downloadLocation) => {
     if (!this.props.puzzle) {
       let photoID = this.props.match.params.id;
       let photoUrl = `https://api.unsplash.com/photos/${photoID}?client_id=${clientID}&w=600&h=600`
-      if (!photoID) {
+      if (!photoID || photoID==='') {
         photoUrl = `https://api.unsplash.com/photos/random?client_id=${clientID}&w=600&h=600`
       }
       fetch(photoUrl)

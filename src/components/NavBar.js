@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import RandomIcon from '@material-ui/icons/AllInclusive';
 import ImageSearchIcon from '@material-ui/icons/ImageSearchTwoTone';
 import LoginIcon from '@material-ui/icons/LockOpenTwoTone';
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,9 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar() {
-  const classes = useStyles();
 
+export default function NavBar(props) {
+  const classes = useStyles();   
+    const history = useHistory();
+  const randomPuzzle = () => {
+    props.clearPuzzle();
+
+         history.push({
+          pathname:  "/puzzle"})
+  }
+  
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -43,7 +52,7 @@ export default function NavBar() {
           </Typography>
           <ul className="nav-list">
                     <li className="nav-list-item">
-                        {<Link className="nav-link" to="/puzzle/"><RandomIcon style={{color:"#ffffff"}}/></Link>}
+                        {<Link className="nav-link" onClick={()=>randomPuzzle()}><RandomIcon style={{color:"#ffffff"}}/></Link>}
                     </li>
                     <li className="nav-list-item">
                         {<Link className="nav-link" to="/search"><ImageSearchIcon style={{color:"#ffffff"}}/></Link>}

@@ -11,7 +11,7 @@ const Router = () => {
             <Route exact path ="/" component={PuzzlePicker} />
             <Route path="/search/:query?" render={(props)=> <PuzzlePicker {...props} key={Date.now()} />}/>
             {/* <Route path="/about" component={About} /> */}
-            <Route path="/puzzle/:id?" render={(props) => <App {...props} key={Date.now()}/>}/>
+            <Route path="/puzzle/:id?" render={(props) => <App {...props}  key={Date.now()} />}/>
             <Route path="/login" component={Login}/>
         </Switch>
     )

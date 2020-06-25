@@ -13,6 +13,8 @@ const puzzle = (state = null, action) => {
     switch(action.type) {
         case 'ADD_PUZZLE':
             return action.value;
+        case 'CLEAR_PUZZLE':
+            return null
         default:
             return state;
     }}

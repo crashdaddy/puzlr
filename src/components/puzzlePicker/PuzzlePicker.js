@@ -129,11 +129,11 @@ class PuzzlePicker extends Component {
               <SearchForm handleSubmit={this.handleSearch} handleChange={this.handleChange} query={this.state.query} />
               <PopularSearches filterSearch={this.filterSearch} />
             </div>
-            <div style={{ display: 'inline-flex', width: '96%', margin: '20px auto', flexWrap: 'wrap' }}>
+            <div className="puzzlePickerResultsLayout">
               {puzzleList.map((puzzle, idx) => <Paper key={idx} className="puzzlePickerDiv" elevation={3} >
                 <img src={`${puzzle.urls.full}&w=150`} id={puzzle.id} className="searchResultsImg" alt="" onClick={this.puzzlePick} />
-                <div style={{ width: '90%', fontSize: 'small', fontWeight: 'bold', margin: '2px auto' }}>{puzzle.alt_description}</div>
-                <i>Photo by: <a href={`${puzzle.user.links.html}?utm_source=puzzlr&utm_medium=referral`} target="blank"><strong>{puzzle.user.username}</strong></a> on <a href="https://unsplash.com/?utm_source=puzzlr&utm_medium=referral">Unsplash</a></i>
+                <div style={{ width: '90%', fontSize: 'small', fontWeight: 'bold', margin: '2px auto',padding:'5px' }}>{puzzle.alt_description}</div>
+                <div style={{padding:'5px'}}><i>Photo by: <a href={`${puzzle.user.links.html}?utm_source=puzzlr&utm_medium=referral`} target="blank"><strong>{puzzle.user.username}</strong></a> on <a href="https://unsplash.com/?utm_source=puzzlr&utm_medium=referral">Unsplash</a></i></div>
                 {/* <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p> */}
               </Paper>)}
             </div>

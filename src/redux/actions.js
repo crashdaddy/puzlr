@@ -11,3 +11,10 @@ export const addPuzzle = (newPuzzle) => {
         value: newPuzzle,
     };
 }
+
+export const clearPuzzle = () => {
+  return {
+        type: "CLEAR_PUZZLE",
+        value: null,
+  }
+}
