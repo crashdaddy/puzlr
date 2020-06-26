@@ -42,7 +42,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      timestamp:'',
+      timestamp: '',
       gameOver: false,
       cheatMode: false,
       moves: 0,
@@ -60,20 +60,20 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-   
+
     this.fetchImg();
     this.createBoard();
-}
+  }
 
-triggerDownload = (downloadLocation) => {
-  downloadLocation += `?client_id=${clientID}`;
+  triggerDownload = (downloadLocation) => {
+    downloadLocation += `?client_id=${clientID}`;
 
-  fetch(downloadLocation)
-  .then(res => res.json())
-   .then(data=> {
-     console.log("Download Triggered:", data);
-   })
-}
+    fetch(downloadLocation)
+      .then(res => res.json())
+      .then(data => {
+        console.log("Download Triggered:", data);
+      })
+  }
 
   // add/remove favorites API
   addFave = () => {
@@ -101,7 +101,10 @@ triggerDownload = (downloadLocation) => {
       .then(data => {
         if (data.code == "200") {
           console.log("favorited!")
-        } else console.log(`We've encountered a problem: ${data.code}  Please try again.`);
+          this.props.sendMessage("Added to your Favorites")
+        } else {
+          this.props.sendMessage(`We've encountered a problem: ${data.code}  Please try again.`);
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -137,16 +140,19 @@ triggerDownload = (downloadLocation) => {
 
 
   toggleFavorite = () => {
-    if(this.props.player){
-    if (this.state.favorite === false) {
-      this.addFave();
-    } else {
-      this.delFave();
+    if (this.props.player) {
+      if (this.state.favorite === false) {
+        this.addFave();
+      } else {
+        this.delFave();
+      }
+      this.setState({
+        favorite: !this.state.favorite
+      })
     }
-    this.setState({
-      favorite: !this.state.favorite
-    })}
-    else console.log("you're not logged in, sucka")
+    else {
+      this.props.sendMessage("You're not logged in")
+    }
   }
 
   countMove = () => {
@@ -164,6 +170,7 @@ triggerDownload = (downloadLocation) => {
         this.setState({
           gameOver: true
         })
+
       }
     })
   }
@@ -171,7 +178,8 @@ triggerDownload = (downloadLocation) => {
   gameOver = () => {
     this.setState({
       gameOver: true
-    })
+    }, () => this.props.sendMessage(`YOU WON in ${this.state.moves} moves!`))
+
   }
 
   changeBoardSize = (newSize) => {
@@ -188,7 +196,7 @@ triggerDownload = (downloadLocation) => {
     if (!this.props.puzzle) {
       let photoID = this.props.match.params.id;
       let photoUrl = `https://api.unsplash.com/photos/${photoID}?client_id=${clientID}&w=600&h=600`
-      if (!photoID || photoID==='') {
+      if (!photoID || photoID === '') {
         photoUrl = `https://api.unsplash.com/photos/random?client_id=${clientID}&w=600&h=600`
       }
       fetch(photoUrl)
@@ -199,19 +207,19 @@ triggerDownload = (downloadLocation) => {
             puzzleId: data.id,
             imgPic: data.urls.raw,
             authorObject: data
-          }); 
+          });
           this.triggerDownload(data.links.download_location);
           imgUrl = data.urls.raw;
         })
     } else {
-        this.setState({
+      this.setState({
         puzzleId: this.props.puzzle.id,
         authorObject: this.props.puzzle,
         imgPic: this.props.puzzle.urls.raw + `&w=600&h=600`,
       })
       this.triggerDownload(this.props.puzzle.links.download_location);
     }
-    tempImg.src = imgUrl;   
+    tempImg.src = imgUrl;
   }
 
   createBoard = () => {
@@ -255,7 +263,7 @@ triggerDownload = (downloadLocation) => {
           <div className="App">
             <LeftPanel favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
             <div className="gameBoard" style={{ width: `${boardDim}px`, height: `${boardDim}px` }}>
-              <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode}  />
+              <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
             </div>
             <RightPanel authorObject={this.state.authorObject.user} />
           </div>

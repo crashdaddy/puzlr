@@ -18,3 +18,10 @@ export const clearPuzzle = () => {
         value: null,
   }
 }
+
+export const sendMessage = (navText) => {
+  return {
+    type: "SET_TEXT",
+    value: navText,
+  }
+}

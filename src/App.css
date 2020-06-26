@@ -36,7 +36,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
   margin:200px auto;
-  width:95%;
+  width:100%;
 }
 
 .puzzlePickerDiv {
@@ -48,7 +48,8 @@
 
 .puzzlePickerResultsLayout {
   display: inline-flex; 
-  width: 98%;
+  width: 100%;
+  background-color: #f5fbfc;
   margin: 10px auto;
   flex-Wrap: wrap;
   justify-content: center; 
