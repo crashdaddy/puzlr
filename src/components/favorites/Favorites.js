@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import '../../App.css';
+import SocialLinks from '../SocialLinks';
 
 class Favorites extends Component {
     constructor(props) {
@@ -49,7 +50,8 @@ class Favorites extends Component {
             <div className="favoritesContainer">
                 {this.state.favorites.map(fave => 
                     <div style={{width:'100%',display:'block'}}><img src={fave.puzzleURL} style={{width:'100px',height:'100px'}}/> 
-                    <img src={fave.smallPic} style={{width:'100px',height:'100px'}} /> {fave.author} 
+                    <img src={fave.smallPic} style={{width:'100px',height:'100px'}} alt='' /> {fave.author} 
+                    <SocialLinks twitter={fave.authorTwitter} instagram={fave.authorInsta} author={fave.authorUnsplash} style={{display:'inline'}} />
                     </div>
                 )}
             </div>
