@@ -128,3 +128,7 @@ transform: translateX(-50%);
   justify-items: flex-start;
   justify-content: space-around;
 }
+
+.contactIcons {
+  display: inline;
+}
