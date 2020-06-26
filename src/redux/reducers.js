@@ -19,4 +19,14 @@ const puzzle = (state = null, action) => {
             return state;
     }}
 
-export default combineReducers({ player,puzzle })
+const navTalk = (state="You aren't logged in", action) => {
+    switch(action.type) {
+        case 'SET_TEXT':
+            console.log(action.value)
+           return action.value;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({ player,puzzle, navTalk })

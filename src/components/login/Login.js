@@ -38,6 +38,7 @@ class Login extends Component {
     .then(data => {
         if (data.code=="200") {
         console.log(`Nice to see you ${data.userName}`);
+        this.props.sendMessage(`You are logged in as ${data.userName}`)
         this.props.addUser(data)
         this.setState({
             loading: false
