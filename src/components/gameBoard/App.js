@@ -60,10 +60,11 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-
+  this.props.sendMessage("You got this!")
     this.fetchImg();
     this.createBoard();
   }
+
 
   triggerDownload = (downloadLocation) => {
     downloadLocation += `?client_id=${clientID}`;

@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
     import PuzzlePicker from '../components/puzzlePicker/PuzzlePicker'
-    import {addUser, addPuzzle} from '../redux/actions'
+    import {addUser, addPuzzle, sendMessage} from '../redux/actions'
 
     const mapStateToProps = (state) => {
         return {
             player: state.player,
-            puzzle: state.puzzle
+            puzzle: state.puzzle,
+            navTalk: state.navTalk
         }
     }
 
@@ -13,7 +14,8 @@ import { connect } from 'react-redux'
      const mapDispatchToProps = (dispatch) => {
         return {
             addUser: (user) => dispatch(addUser(user)),
-            addPuzzle: (puzzle) => dispatch(addPuzzle(puzzle))
+            addPuzzle: (puzzle) => dispatch(addPuzzle(puzzle)),
+            sendMessage: (navText) => dispatch(sendMessage(navText))
         }
     }
 

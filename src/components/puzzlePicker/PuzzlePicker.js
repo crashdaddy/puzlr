@@ -91,6 +91,7 @@ class PuzzlePicker extends Component {
     }
     this.querySearch(query)
     window.addEventListener('scroll', this.infiniteScroll);
+    this.props.sendMessage("Pick a winner!")
   }
 
 
