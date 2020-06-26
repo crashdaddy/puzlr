@@ -85,7 +85,7 @@ class App extends Component {
       "puzzleUrl": this.state.imgPic,
       "puzzleID": this.state.puzzleId,
       "author": this.state.authorObject.user.username,
-      "smallPic": this.state.authorObject.urls.small,
+      "smallPic": this.state.authorObject.user.profile_image.large,
       "authorTwitter": this.state.authorObject.user.twitter_username,
       "authorInsta": this.state.authorObject.user.instagram_username,
       "authorUnsplash": this.state.authorObject.user.links.html

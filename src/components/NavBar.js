@@ -11,6 +11,7 @@ import ImageSearchIcon from '@material-ui/icons/ImageSearchTwoTone';
 import LoginIcon from '@material-ui/icons/LockOpenTwoTone';
 import { useHistory } from "react-router";
 import Talker from './Talker'
+import FavoriteIcon from '@material-ui/icons/FavoriteTwoTone';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,9 +56,17 @@ export default function NavBar(props) {
           </Typography>
           <Talker navTalk={props.navTalk} />
           <ul className="nav-list">
+            
             <li className="nav-list-item">
               {<Link className="nav-link" onClick={() => randomPuzzle()}><RandomIcon style={{ color: "#ffffff" }} /></Link>}
             </li>
+            {props.player ?
+            <li className="nav-list-item">
+              {<Link className="nav-link" to="/faves"><FavoriteIcon style={{ color: "#ffffff" }} /></Link>}
+            </li>
+            :
+            ''
+            }
             <li className="nav-list-item">
               {<Link className="nav-link" to="/search"><ImageSearchIcon style={{ color: "#ffffff" }} /></Link>}
             </li>
