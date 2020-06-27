@@ -116,7 +116,7 @@ class App extends Component {
     let delFaveURL = "https://puzzlrapi.herokuapp.com/delFave";
 
     let delBody = {
-      "id": this.props.player.playerID,
+      "id": this.props.player.id,
       "puzzleID": this.state.puzzleId
     }
 
@@ -130,9 +130,9 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         if (data.code == "200") {
-          console.log("Removed from Favorites");
+          this.props.sendMessage("Removed from Favorites");
 
-        } else console.log("something went wrong: ", data.code);
+        } else this.props.sendMessage("something went wrong: ", data.code);
       })
       .catch((error) => {
         console.error('Error:', error);
