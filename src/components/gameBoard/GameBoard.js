@@ -49,7 +49,6 @@ class GameBoard extends Component {
       })
     }
     if (checkWin(this.props.width, this.props.cheatMode, this.props.solvedBoard)) {
-      console.log("you win")
       this.props.gameOver();
     }
   }

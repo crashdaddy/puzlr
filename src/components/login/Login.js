@@ -37,7 +37,6 @@ class Login extends Component {
     .then(res => res.json())
     .then(data => {
         if (data.code=="200") {
-        console.log(`Nice to see you ${data.userName}`);
         this.props.sendMessage(`You are logged in as ${data.userName}`)
         this.props.addUser(data)
         this.setState({

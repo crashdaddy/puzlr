@@ -1,9 +1,5 @@
 import React, {Component} from "react";
 import '../../App.css';
-import SocialLinks from '../SocialLinks';
-import Paper from '@material-ui/core/Paper';
-import DeleteIcon from '@material-ui/icons/HighlightOffTwoTone';
-import { red } from '@material-ui/core/colors';
 import FavoritesCard from './FavoritesCard';
 
 class Favorites extends Component {
@@ -21,7 +17,7 @@ class Favorites extends Component {
 
     delFave = (picUrl) => {
       let delFaveURL = "https://puzzlrapi.herokuapp.com/delFave";
-      console.log(picUrl, this.props.player.id)
+      
       let delBody = {
         "id": this.props.player.id,
         "puzzleID": picUrl
@@ -84,7 +80,7 @@ class Favorites extends Component {
                 {this.state.favorites.length> 0 ?
 
                 this.state.favorites.map((fave,idx) => 
-                <FavoritesCard fave={fave} idx={idx} delFave={this.delFave} />)
+                <FavoritesCard clearPuzzle={this.props.clearPuzzle} fave={fave} key={idx} idx={idx} delFave={this.delFave} />)
                   :
                 <div className="noDataDiv">You don't have any favorites!</div>
               }

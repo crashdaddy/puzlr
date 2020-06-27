@@ -4,6 +4,8 @@ import SocialLinks from '../SocialLinks';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/HighlightOffTwoTone';
 import { red } from '@material-ui/core/colors';
+import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class FavoritesCard extends Component {
     constructor(props) {
@@ -22,12 +24,19 @@ class FavoritesCard extends Component {
         this.props.delFave(faveToDelete);
       }
 
+      selectPuzzle = (puzzleID) => {
+        this.props.clearPuzzle();
+        this.props.history.push({
+          pathname: `puzzle/${puzzleID}`
+        })
+      }
+      
     render() {
         return(
             <div>
             {this.state.visible ?
             <Paper key={this.props.idx} className="favoritesCard" elevation={3} >
-            <img src={`${this.props.fave.puzzleURL}&w=220&h=220`} id={this.props.fave.puzzleID} className="searchResultsImg" style={{height:'220px'}} alt="" />
+            <img onClick={()=>this.selectPuzzle(`${this.props.fave.puzzleID}`)} src={`${this.props.fave.puzzleURL}&w=220&h=220`} id={this.props.fave.puzzleID} className="searchResultsImg" style={{height:'220px'}} alt="" />
             <Paper key={this.props.idx+Date.now()} >
             <div style={{padding:'5px'}}><i>Photo by: </i><br/>
             <img src={`${this.props.fave.smallPic}`} style={{width:'100px',height:'100px'}} /><br/>
@@ -45,4 +54,4 @@ class FavoritesCard extends Component {
     }
 }
 
-export default FavoritesCard
+export default withRouter(FavoritesCard)

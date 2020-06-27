@@ -36,6 +36,11 @@ class LeftPanel extends Component {
                     :
                     <div style={{ fontSize: 'x-large' }}>Moves: {this.props.moves}</div>
                 }
+                {this.props.currentRecord ? 
+                <div><u>Current Record:</u> <br/> {this.props.currentRecordHolder}: {this.props.currentRecord} Moves</div>
+                :
+                <div>No current record for this board!</div>
+                }
             </div>
         )
     }

@@ -55,16 +55,131 @@ class App extends Component {
       imgPic: '',
       authorObject: '',
       favorite: false,
-      puzzleId: ''
+      puzzleId: '',
+      currentRecord: null,
+      currentRecordHolder: null
     };
   }
 
   componentDidMount = () => {
-  this.props.sendMessage("You got this!")
+
+    this.props.sendMessage("You got this!")
     this.fetchImg();
     this.createBoard();
   }
 
+  getRecord = (puzzleID, boardSize) => {
+    let recordUrl = "https://puzzlrapi.herokuapp.com/getRecord"
+
+    let queryParams = {
+      "puzzleID": puzzleID,
+      "boardSize": boardSize
+    }
+    fetch(recordUrl, {
+      method: 'post',
+      body: JSON.stringify(queryParams),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code == "200") {
+          if (data.record) {
+            this.setState({
+              currentRecord: data.record[0].moves,
+              currentRecordHolder: data.record[0].username
+            })
+          }
+        } else {
+          this.props.sendMessage(`We've encountered a problem: ${data.code}  getting the high score.`);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      })
+
+  }
+
+  updateRecord = () => {
+
+    this.props.sendMessage("You have the new record!");
+
+    let setRecordUrl = "https://puzzlrapi.herokuapp.com/updateRecord";
+
+    let queryParams = {
+      "puzzleID": this.state.puzzleId,
+      "boardSize": this.state.boardWidth,
+      "playerName": this.props.player.userName,
+      "moves": this.state.moves
+    }
+    fetch(setRecordUrl, {
+      method: 'post',
+      body: JSON.stringify(queryParams),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code == "200") {
+          this.props.sendMessage("Your record has been saved!")
+        } else {
+          this.props.sendMessage(`We've encountered a problem: ${data.code}  getting the high score.`);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      })
+  }
+
+  newRecord = () => {
+
+    this.props.sendMessage("You have the new record!");
+
+    let setRecordUrl = "https://puzzlrapi.herokuapp.com/newRecord";
+
+    let queryParams = {
+      "puzzleID": this.state.puzzleId,
+      "boardSize": this.state.boardWidth,
+      "playerName": this.props.player.userName,
+      "moves": this.state.moves
+    }
+    fetch(setRecordUrl, {
+      method: 'post',
+      body: JSON.stringify(queryParams),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code == "200") {
+          this.props.sendMessage("Your record has been saved!")
+        } else {
+          this.props.sendMessage(`We've encountered a problem: ${data.code}  getting the high score.`);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      })
+  }
+
+  checkRecord = () => {
+    if (this.props.player.userName) {
+      if (this.state.moves < this.state.currentRecord) {
+        this.setState({
+          currentRecord: this.state.moves,
+          currentRecordHolder: this.props.player.userName
+        }, this.updateRecord())
+      } else if (this.state.currentRecord === null) {
+        this.setState({
+          currentRecord: this.state.moves,
+          currentRecordHolder: this.props.player.userName
+        }, this.newRecord())
+      }
+    } else this.props.sendMessage("Oh no! You're not logged in!")
+  }
 
   triggerDownload = (downloadLocation) => {
     downloadLocation += `?client_id=${clientID}`;
@@ -101,7 +216,6 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         if (data.code == "200") {
-          console.log("favorited!")
           this.props.sendMessage("Added to your Favorites")
         } else {
           this.props.sendMessage(`We've encountered a problem: ${data.code}  Please try again.`);
@@ -179,8 +293,7 @@ class App extends Component {
   gameOver = () => {
     this.setState({
       gameOver: true
-    }, () => this.props.sendMessage(`YOU WON in ${this.state.moves} moves!`))
-
+    }, () => this.checkRecord())
   }
 
   changeBoardSize = (newSize) => {
@@ -210,6 +323,7 @@ class App extends Component {
             authorObject: data
           });
           this.triggerDownload(data.links.download_location);
+          this.getRecord(data.id, this.state.boardWidth);
           imgUrl = data.urls.raw;
         })
     } else {
@@ -219,6 +333,7 @@ class App extends Component {
         imgPic: this.props.puzzle.urls.raw + `&w=600&h=600`,
       })
       this.triggerDownload(this.props.puzzle.links.download_location);
+      this.getRecord(this.props.puzzle.id, this.state.boardWidth);
     }
     tempImg.src = imgUrl;
   }
@@ -251,7 +366,8 @@ class App extends Component {
       backgroundPos: solvedBoard,
       indexBoard: idxBoard
     })
-    //   return board;
+
+    this.getRecord(this.state.puzzleId, boardWidth)
   }
 
 
@@ -262,7 +378,7 @@ class App extends Component {
       <div>
         {this.state.authorObject ?
           <div className="App">
-            <LeftPanel favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
+            <LeftPanel currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
             <div className="gameBoard" style={{ width: `${boardDim}px`, height: `${boardDim}px` }}>
               <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
             </div>
