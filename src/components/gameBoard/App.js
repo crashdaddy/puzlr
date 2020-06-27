@@ -102,7 +102,7 @@ class App extends Component {
   }
 
   updateRecord = () => {
-
+    console.log("update hit")
     this.props.sendMessage("You have the new record!");
 
     let setRecordUrl = "https://puzzlrapi.herokuapp.com/updateRecord";
@@ -299,7 +299,8 @@ class App extends Component {
   changeBoardSize = (newSize) => {
     this.setState({
       boardWidth: newSize,
-      boardHeight: newSize
+      boardHeight: newSize,
+      moves: 0
     },
       this.createBoard);
   }
