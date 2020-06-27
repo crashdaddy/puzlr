@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import '../../App.css';
 import SocialLinks from '../SocialLinks';
+import Paper from '@material-ui/core/Paper';
+import DeleteIcon from '@material-ui/icons/HighlightOffTwoTone';
+import { red } from '@material-ui/core/colors';
+import FavoritesCard from './FavoritesCard';
 
 class Favorites extends Component {
     constructor(props) {
@@ -13,6 +17,33 @@ class Favorites extends Component {
 
     componentDidMount=()=> {
         this.fetchFaves()
+    }
+
+    delFave = (picUrl) => {
+      let delFaveURL = "https://puzzlrapi.herokuapp.com/delFave";
+      console.log(picUrl, this.props.player.id)
+      let delBody = {
+        "id": this.props.player.id,
+        "puzzleID": picUrl
+      }
+  
+      fetch(delFaveURL, {
+        method: 'post',
+        body: JSON.stringify(delBody),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.code == "200") {
+            this.props.sendMessage("Removed from Favorites");
+  
+          } else this.props.sendMessage("something went wrong: ", data.code);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        })
     }
 
     fetchFaves = () => {
@@ -47,13 +78,17 @@ class Favorites extends Component {
 
     render() {
         return(
-            <div className="favoritesContainer">
-                {this.state.favorites.map(fave => 
-                    <div style={{width:'100%',display:'block'}}><img src={fave.puzzleURL} style={{width:'100px',height:'100px'}}/> 
-                    <img src={fave.smallPic} style={{width:'100px',height:'100px'}} alt='' /> {fave.author} 
-                    <SocialLinks twitter={fave.authorTwitter} instagram={fave.authorInsta} author={fave.authorUnsplash} style={{display:'inline'}} />
-                    </div>
-                )}
+            <div className="puzzlePickerResultsLayout" style={{marginTop:'52px'}}>
+                <span style={{backgroundColor:'#ffffff70', width:'100%',fontSize: 'x-large',zIndex:'2', fontWeight: 'bold',marginBottom:'20px',position:'fixed' }}>Photos by <a href="https://unsplash.com/?utm_source=puzlr&utm_medium=referral">Unsplash</a></span>
+                <div style={{display:'contents'}}>
+                {this.state.favorites.length> 0 ?
+
+                this.state.favorites.map((fave,idx) => 
+                <FavoritesCard fave={fave} idx={idx} delFave={this.delFave} />)
+                  :
+                <div className="noDataDiv">You don't have any favorites!</div>
+              }
+              </div>     
             </div>
         )
     }
