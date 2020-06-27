@@ -166,7 +166,7 @@ class App extends Component {
   }
 
   checkRecord = () => {
-    if (this.props.player.userName) {
+    if (this.props.player) {
       if (this.state.moves < this.state.currentRecord) {
         this.setState({
           currentRecord: this.state.moves,
