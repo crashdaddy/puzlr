@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router'
 import './loginRegCSS.css';
 import loading from './ajax-loader.gif';
 
@@ -82,7 +81,7 @@ class Login extends Component {
               label="Password"
               type="password" />
               {this.state.loading ?
-              <img src={loading} style={{width:'24px'}}/>
+              <img src={loading} alt='' style={{width:'24px'}}/>
               :
               ''
               }

@@ -1,5 +1,12 @@
 import $ from 'jquery';
 
+////////////////////////////////////
+//
+//  Board functions
+//
+//
+
+
 ////////////////////////////////
 //
 //  functions to move the rows
@@ -117,5 +124,7 @@ const checkWin = (width, cheatMode, bgPos) => {
     //    $("#percentComplete").html(solvedPercent.toFixed(2));
     return won;
 }
+
+
 
 export { moveDown, moveLeft, moveRight, moveUp, checkWin }

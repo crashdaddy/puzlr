@@ -3,6 +3,7 @@ import BoardSizer from './BoardSizer';
 import CheatModeOffIcon from '@material-ui/icons/GridOffTwoTone';
 import CheatModeOnIcon from '@material-ui/icons/GridOnTwoTone';
 import FavoriteIcon from '@material-ui/icons/FavoriteTwoTone';
+import Avatar from '../avatar/Avatar';
 
 class LeftPanel extends Component {
 
@@ -37,7 +38,7 @@ class LeftPanel extends Component {
                     <div style={{ fontSize: 'x-large' }}>Moves: {this.props.moves}</div>
                 }
                 {this.props.currentRecord ? 
-                <div><u>Current Record:</u> <br/> {this.props.currentRecordHolder}: {this.props.currentRecord} Moves</div>
+                <div><u>Current Record:</u> <br/> <div style={{fontWeight:'bold'}}><Avatar name={this.props.currentRecordHolder} size={30}/> {this.props.currentRecordHolder}: {this.props.currentRecord} Moves</div></div>
                 :
                 <div>No current record for this board!</div>
                 }

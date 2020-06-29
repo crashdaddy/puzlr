@@ -4,7 +4,6 @@ import SocialLinks from '../SocialLinks';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/HighlightOffTwoTone';
 import { red } from '@material-ui/core/colors';
-import {Link} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 class FavoritesCard extends Component {
@@ -39,7 +38,7 @@ class FavoritesCard extends Component {
             <img onClick={()=>this.selectPuzzle(`${this.props.fave.puzzleID}`)} src={`${this.props.fave.puzzleURL}&w=220&h=220`} id={this.props.fave.puzzleID} className="searchResultsImg" style={{height:'220px'}} alt="" />
             <Paper key={this.props.idx+Date.now()} >
             <div style={{padding:'5px'}}><i>Photo by: </i><br/>
-            <img src={`${this.props.fave.smallPic}`} style={{width:'100px',height:'100px'}} /><br/>
+            <img src={`${this.props.fave.smallPic}`} style={{width:'100px',height:'100px'}} alt='' /><br/>
             <strong>{this.props.fave.author}</strong></div>
             <SocialLinks twitter={this.props.fave.authorTwitter} instagram={this.props.fave.authorInsta} author={this.props.fave.authorUnsplash} style={{display:'inline'}} />
             {/* <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p> */}
