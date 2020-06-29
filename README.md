@@ -1,6 +1,6 @@
-This is a working model of my Puzlr App.
+## This is a working model of my Puzlr App.
 
-##Puzlr connects to the Unsplash API and turns every one of their photos into an NxN Grid Puzzle where N can be anything from 2 to 9. 
+**Puzlr connects to the Unsplash API and turns every one of their photos into an NxN Grid Puzzle where N can be anything from 2 to 9.** 
 
 Current features:
   - tracks favorites
@@ -13,15 +13,15 @@ Current features:
 
 TODO (short term): 
 
- - rebuild game engine to track moves in an in-memory array instead of the current method which just keeps track of the portion of the background image showing in each tile
- - add a user profile page
-   - favorites
-   - records
-   - history
-- if the person looking at the profile page is the user, then also display options for customizing their avatar
-- allow customization of avatar
-   - switch between [Robohash] (https://robohash.org/) sets
-- add search by puzzle ID
+ - [] rebuild game engine to track moves in an in-memory array instead of the current method which just keeps track of the portion of the background image showing in each tile
+ - [] add a user profile page
+   - [] favorites
+   - [] records
+   - [] history
+   - [] if the person looking at the profile page is the user, then also display options for customizing their avatar
+- [] allow customization of avatar
+   - [] switch between [Robohash](https://robohash.org/) sets
+- [] add search by puzzle ID
 
 TODO (long term):
 
