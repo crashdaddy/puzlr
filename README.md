@@ -13,9 +13,11 @@ Current features:
 
 TODO (short term): 
 
- - [x] ** Important ** With the current system of shuffling it's possible to have two tiles switch on the
+ - [x] ** Important ** With the current system of shuffling it's possible to end up with two tiles switched on the
  3x3 board, which is an impossible solve!
+ - [x] engine rebuild also fixed cheatmode bug where it would incorrectly highlight wrong tiles
  - [x] rebuild game engine to track moves in an in-memory array instead of the current method which just keeps track of the portion of the background image showing in each tile (this will also fix that first problem)
+ - [ ] move API keys to backend
  - [ ] add a user profile page
    - [ ] favorites
    - [ ] records

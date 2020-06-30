@@ -60,13 +60,13 @@ class PuzzlePicker extends Component {
   }
 
   querySearch = (query) => {
-    let APIendpoint = `https://api.unsplash.com/search/photos?query=${query}&per_page=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY`;
+    let APIendpoint = `https://puzzlrapi.herokuapp.com/getQueryPix?query=${query}`;
 
     if (query.includes('user:')) {
-      let newquery = query.substr(5).trim();
-      APIendpoint = `https://api.unsplash.com/users/${newquery}/photos?per_page=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY`;
+      let userquery = query.substr(5).trim();
+      APIendpoint =  `https://puzzlrapi.herokuapp.com/getPixByUser?user=${userquery}`;   
     } else if (query === '') {
-      APIendpoint = 'https://api.unsplash.com/photos/random?count=30&orientation=squarish&client_id=kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY';
+      APIendpoint =  `https://puzzlrapi.herokuapp.com/getRandomPix?query=`;  
     }
     // clear out existing articles
     this.setState({

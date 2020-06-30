@@ -5,7 +5,6 @@ import LeftPanel from '../../containers/LeftPanel';
 import '../../App.css';
 import NoData from '../NoData/NoData';
 
-const clientID = "kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY";
 
 function Footer() {
 
@@ -87,7 +86,6 @@ class App extends Component {
   }
 
   updateRecord = () => {
-    console.log("update hit")
     this.props.sendMessage("You have the new record!");
 
     let setRecordUrl = "https://puzzlrapi.herokuapp.com/updateRecord";
@@ -167,9 +165,20 @@ class App extends Component {
   }
 
   triggerDownload = (downloadLocation) => {
-    downloadLocation += `?client_id=${clientID}`;
 
-    fetch(downloadLocation)
+    let triggerURL = `https://puzzlrapi.herokuapp.com/triggerDownload`
+
+    let queryParams = {
+      "downloadURL": downloadLocation
+    }
+
+    fetch(triggerURL, {
+      method: 'post',
+      body: JSON.stringify(queryParams),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then(res => res.json())
       .then(data => {
         console.log("Download Triggered:", data);
@@ -347,7 +356,7 @@ class App extends Component {
     let lastIndex = board.find(item => item.tile === `${this.state.boardHeight - 1}-${col}`);
     lastIndex.pos = tempPos
 
-    console.log(this.winner(board));
+    this.winner(board);
 
     this.setState({
       board: board
@@ -371,7 +380,7 @@ class App extends Component {
     let lastIndex = board.find(item => item.tile === `${0}-${col}`);
     lastIndex.pos = tempPos
 
-    console.log(this.winner(board));
+    this.winner(board);
 
     this.setState({
       board: board
@@ -395,7 +404,7 @@ class App extends Component {
     let lastIndex = board.find(item => item.tile === `${row}-${this.state.boardWidth - 1}`);
     lastIndex.pos = tempPos
 
-    console.log(this.winner(board));
+    this.winner(board);
 
     this.setState({
       board: board
@@ -419,7 +428,7 @@ class App extends Component {
     let lastIndex = board.find(item => item.tile === `${row}-${0}`);
     lastIndex.pos = tempPos
 
-    console.log(this.winner(board));
+    this.winner(board);
 
     this.setState({
       board: board
