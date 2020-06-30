@@ -17,7 +17,7 @@ TODO (short term):
  3x3 board, which is an impossible solve!
  - [x] engine rebuild also fixed cheatmode bug where it would incorrectly highlight wrong tiles
  - [x] rebuild game engine to track moves in an in-memory array instead of the current method which just keeps track of the portion of the background image showing in each tile (this will also fix that first problem)
- - [ ] move API keys to backend
+ - [x] move API keys to backend
  - [ ] add a user profile page
    - [ ] favorites
    - [ ] records
