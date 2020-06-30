@@ -4,7 +4,6 @@ import RightPanel from './RightPanel';
 import LeftPanel from '../../containers/LeftPanel';
 import '../../App.css';
 import NoData from '../NoData/NoData';
-import { checkWin } from './Moves';
 
 const clientID = "kCP52qFRNioBLCNR3E73lsph9nowM6RXl9e8x_PCwaY";
 
@@ -17,37 +16,23 @@ function Footer() {
   )
 }
 
-
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
+// generate a random number in the required range (min-max)
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      timestamp: '',
       gameOver: false,
       cheatMode: false,
       moves: 0,
       board: [],
-      backgroundPos: [],
       indexBoard: [],
       picSize: 600,
       boardWidth: 4,
@@ -281,11 +266,8 @@ class App extends Component {
     this.setState({
       cheatMode: !this.state.cheatMode
     }, () => {
-      if (checkWin(this.state.boardWidth, this.state.cheatMode, this.state.backgroundPos)) {
-        this.setState({
-          gameOver: true
-        })
-
+      if (this.winner(this.state.board)) {
+        this.gameOver();
       }
     })
   }
@@ -339,6 +321,156 @@ class App extends Component {
     tempImg.src = imgUrl;
   }
 
+  colUp = (newboard, tileID) => {
+    let coords = tileID.split('-');
+    let col = coords[1]
+    let board = [...newboard];
+    let temp = board.find(item => item.tile === `0-${col}`);
+    let tempPos = temp.pos;
+    for (let row = 0; row < this.state.boardHeight - 1; row++) {
+      let currentIndex = board.find(item => item.tile === `${row}-${col}`)
+      let nextIndex = board.find(item => item.tile === `${row + 1}-${col}`);
+      currentIndex.pos = nextIndex.pos
+    }
+
+    let lastIndex = board.find(item => item.tile === `${this.state.boardHeight - 1}-${col}`);
+    lastIndex.pos = tempPos
+
+    console.log(this.winner(board));
+
+    this.setState({
+      board: board
+    })
+
+  }
+
+  colDown = (newboard, tileID) => {
+    let coords = tileID.split('-');
+    let col = coords[1]
+    let board = [...newboard];
+
+    let tempIndex = board.find(item => item.tile === `${this.state.boardHeight - 1}-${col}`);
+    let tempPos = tempIndex.pos
+    for (let row = this.state.boardHeight - 1; row > 0; row--) {
+      let currentIndex = board.find(item => item.tile === `${row}-${col}`)
+      let prevIndex = board.find(item => item.tile === `${row - 1}-${col}`);
+      currentIndex.pos = prevIndex.pos
+    }
+
+    let lastIndex = board.find(item => item.tile === `${0}-${col}`);
+    lastIndex.pos = tempPos
+
+    console.log(this.winner(board));
+
+    this.setState({
+      board: board
+    })
+
+  }
+
+  rowLeft = (newboard, tileID) => {
+    let coords = tileID.split('-');
+    let row = coords[0]
+    let board = [...newboard];
+
+    let tempIndex = board.find(item => item.tile === `${row}-${0}`);
+    let tempPos = tempIndex.pos
+    for (let col = 0; col < this.state.boardWidth - 1; col++) {
+      let currentIndex = board.find(item => item.tile === `${row}-${col}`)
+      let prevIndex = board.find(item => item.tile === `${row}-${col + 1}`);
+      currentIndex.pos = prevIndex.pos
+    }
+
+    let lastIndex = board.find(item => item.tile === `${row}-${this.state.boardWidth - 1}`);
+    lastIndex.pos = tempPos
+
+    console.log(this.winner(board));
+
+    this.setState({
+      board: board
+    })
+  }
+
+
+  rowRight = (newboard, tileID) => {
+    let coords = tileID.split('-');
+    let row = coords[0]
+    let board = [...newboard];
+
+    let tempIndex = board.find(item => item.tile === `${row}-${this.state.boardWidth - 1}`);
+    let tempPos = tempIndex.pos
+    for (let col = this.state.boardWidth - 1; col > 0; col--) {
+      let currentIndex = board.find(item => item.tile === `${row}-${col}`)
+      let prevIndex = board.find(item => item.tile === `${row}-${col - 1}`);
+      currentIndex.pos = prevIndex.pos
+    }
+
+    let lastIndex = board.find(item => item.tile === `${row}-${0}`);
+    lastIndex.pos = tempPos
+
+    console.log(this.winner(board));
+
+    this.setState({
+      board: board
+    })
+  }
+
+  // this function performs a random set of permutations on the
+  // gameboard to shuffle the picture around
+
+  shuffleBoard = (board) => {
+
+    // we're going to perform 30 random moves
+    for (let i = 0; i < 30; i++) {
+      // first pick a tile to start from
+      let randomX = getRandomInt(0, this.state.boardWidth - 1);
+      let randomY = getRandomInt(0, this.state.boardHeight - 1);
+      // construct its ID
+      let randomCell = `${randomX}-${randomY}`;
+
+      // pick a random direction
+      let randomDirection = getRandomInt(0, 3);
+      // perform the move
+      switch (randomDirection) {
+        case 0:
+          this.rowLeft(board, randomCell);
+
+          break;
+        case 1:
+          this.rowRight(board, randomCell);
+
+          break;
+        case 2:
+          this.colUp(board, randomCell);
+
+          break;
+        case 3:
+          this.colDown(board, randomCell);
+
+          break; default:
+      }
+    }
+
+    // now mess it all up!
+    if (this.winner(board)) {
+      this.shuffleBoard(board);
+    }
+  }
+
+  winner = (board) => {
+    let youWin = true
+    board.forEach(tile => {
+      if (tile.pos !== tile.shouldBe) {
+        youWin = false
+      }
+    })
+
+    if (youWin) {
+      this.gameOver()
+    }
+    return youWin
+  }
+
   createBoard = () => {
     let board = [];
     let idxBoard = [];
@@ -354,17 +486,15 @@ class App extends Component {
       for (let j = 0; j < boardHeight; j++) {
         //  board.push(`<div id='${i}-${j}' style="border:1px solid black;background:url(${imgSrc}) no-repeat;background-position:-${j*tileWidth}px -${i*tileHeight}px;width:${tileWidth}px;height:${tileHeight}px;float:left;">${i}-${j}</div>`)
 
-        board.push({ "tile": `${i}-${j}`, "pos": `-${j * tileWidth}px -${i * tileHeight}px`, "numberPosition": counter, "size": tileWidth, "selected": false });
+        board.push({ "tile": `${i}-${j}`, "pos": `-${j * tileWidth}px -${i * tileHeight}px`, shouldBe: `-${j * tileWidth}px -${i * tileHeight}px`, "numberPosition": counter, "size": tileWidth, "selected": false });
         idxBoard.push(`${i}-${j}`);
         counter++;
       }
     }
-    let solvedBoard = [];
-    board.forEach(newTile => solvedBoard.push(newTile));
-    let shuffledBoard = shuffle(board);
+
+    this.shuffleBoard(board);
     this.setState({
-      board: shuffledBoard,
-      backgroundPos: solvedBoard,
+      board: board,
       indexBoard: idxBoard
     })
 
@@ -381,7 +511,7 @@ class App extends Component {
           <div className="App">
             <LeftPanel currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
             <div className="gameBoard" style={{ width: `${boardDim}px`, height: `${boardDim}px` }}>
-              <GameBoard countMove={this.countMove} gameOver={this.gameOver} indexBoard={this.state.indexBoard} solvedBoard={this.state.backgroundPos} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
+              <GameBoard rowRight={this.rowRight} rowLeft={this.rowLeft} colUp={this.colUp} colDown={this.colDown} countMove={this.countMove} indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
             </div>
             <RightPanel authorObject={this.state.authorObject.user} />
           </div>

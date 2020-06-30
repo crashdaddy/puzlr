@@ -13,9 +13,9 @@ Current features:
 
 TODO (short term): 
 
- - [ ] ** Important ** With the current system of shuffling it's possible to have two tiles switch on the
+ - [x] ** Important ** With the current system of shuffling it's possible to have two tiles switch on the
  3x3 board, which is an impossible solve!
- - [ ] rebuild game engine to track moves in an in-memory array instead of the current method which just keeps track of the portion of the background image showing in each tile (this will also fix that first problem)
+ - [x] rebuild game engine to track moves in an in-memory array instead of the current method which just keeps track of the portion of the background image showing in each tile (this will also fix that first problem)
  - [ ] add a user profile page
    - [ ] favorites
    - [ ] records
