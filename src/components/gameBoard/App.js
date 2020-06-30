@@ -51,7 +51,7 @@ class App extends Component {
     this.fetchImg();
     this.createBoard();
   }
-
+  
   getRecord = (puzzleID, boardSize) => {
     let recordUrl = "https://puzzlrapi.herokuapp.com/getRecord"
 
@@ -149,7 +149,7 @@ class App extends Component {
   }
 
   checkRecord = () => {
-    if (this.props.player) {
+      if (this.props.player) {
       if (this.state.moves < this.state.currentRecord) {
         this.setState({
           currentRecord: this.state.moves,
@@ -268,7 +268,11 @@ class App extends Component {
     let moves = this.state.moves + 1;
     this.setState({
       moves: moves
-    })
+    },()=>{
+    if (this.winner(this.state.board)) {
+      this.gameOver();
+      this.checkRecord();
+    }})
   }
 
   toggleCheat = () => {
@@ -284,7 +288,7 @@ class App extends Component {
   gameOver = () => {
     this.setState({
       gameOver: true
-    }, () => this.checkRecord())
+    })
   }
 
   changeBoardSize = (newSize) => {
@@ -356,8 +360,6 @@ class App extends Component {
     let lastIndex = board.find(item => item.tile === `${this.state.boardHeight - 1}-${col}`);
     lastIndex.pos = tempPos
 
-    this.winner(board);
-
     this.setState({
       board: board
     })
@@ -379,8 +381,6 @@ class App extends Component {
 
     let lastIndex = board.find(item => item.tile === `${0}-${col}`);
     lastIndex.pos = tempPos
-
-    this.winner(board);
 
     this.setState({
       board: board
@@ -404,8 +404,6 @@ class App extends Component {
     let lastIndex = board.find(item => item.tile === `${row}-${this.state.boardWidth - 1}`);
     lastIndex.pos = tempPos
 
-    this.winner(board);
-
     this.setState({
       board: board
     })
@@ -427,8 +425,6 @@ class App extends Component {
 
     let lastIndex = board.find(item => item.tile === `${row}-${0}`);
     lastIndex.pos = tempPos
-
-    this.winner(board);
 
     this.setState({
       board: board
@@ -481,9 +477,6 @@ class App extends Component {
       }
     })
 
-    if (youWin) {
-      this.gameOver()
-    }
     return youWin
   }
 
@@ -508,6 +501,7 @@ class App extends Component {
 
     this.shuffleBoard(board);
     this.setState({
+      gameOver: false,
       board: board,
       indexBoard: idxBoard
     })

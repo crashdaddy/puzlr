@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
     import LeftPanel from '../components/gameBoard/LeftPanel'
-    import {sendMessage} from '../redux/actions'
+    import {sendMessage, addPuzzle} from '../redux/actions'
     const mapStateToProps = (state) => {
         return {
             player: state.player,
@@ -11,7 +11,8 @@ import { connect } from 'react-redux'
 
     const mapDispatchToProps = (dispatch) => {
         return {
-            sendMessage: (navText) => dispatch(sendMessage(navText))
+            sendMessage: (navText) => dispatch(sendMessage(navText)),
+            addPuzzle: (newPuzzle) => dispatch(addPuzzle(newPuzzle))
         }
     }
 
