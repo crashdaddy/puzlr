@@ -292,13 +292,24 @@ class App extends Component {
     let imgUrl = this.state.imgPic
     if (!this.props.puzzle) {
       let photoID = this.props.match.params.id;
-      let photoUrl = `https://api.unsplash.com/photos/${photoID}?client_id=${clientID}&w=600&h=600`
-      if (!photoID || photoID === '') {
-        photoUrl = `https://api.unsplash.com/photos/random?client_id=${clientID}&w=600&h=600`
+      let queryParams = {
+        "photoID": photoID
       }
-      fetch(photoUrl)
+      
+      let photoUrl = `https://puzzlrapi.herokuapp.com/getSingleImage` 
+      if (!photoID || photoID === '') {
+        photoUrl =  `https://puzzlrapi.herokuapp.com/getRandomImage` 
+      }
+      fetch(photoUrl,{
+        method: 'post',
+        body: JSON.stringify(queryParams),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
         .then(res => res.json())
         .then((data) => {
+          
           this.props.addPuzzle(data)
           this.setState({
             puzzleId: data.id,
