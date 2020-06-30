@@ -434,24 +434,20 @@ class App extends Component {
       switch (randomDirection) {
         case 0:
           this.rowLeft(board, randomCell);
-
           break;
         case 1:
           this.rowRight(board, randomCell);
-
           break;
         case 2:
           this.colUp(board, randomCell);
-
           break;
         case 3:
           this.colDown(board, randomCell);
-
           break; default:
       }
     }
 
-    // now mess it all up!
+    // if it somehow ends up solved after all that scrambling, mess it all up again!
     if (this.winner(board)) {
       this.shuffleBoard(board);
     }
@@ -484,8 +480,6 @@ class App extends Component {
     // Outer loop to create parent
     for (let i = 0; i < boardWidth; i++) {
       for (let j = 0; j < boardHeight; j++) {
-        //  board.push(`<div id='${i}-${j}' style="border:1px solid black;background:url(${imgSrc}) no-repeat;background-position:-${j*tileWidth}px -${i*tileHeight}px;width:${tileWidth}px;height:${tileHeight}px;float:left;">${i}-${j}</div>`)
-
         board.push({ "tile": `${i}-${j}`, "pos": `-${j * tileWidth}px -${i * tileHeight}px`, shouldBe: `-${j * tileWidth}px -${i * tileHeight}px`, "numberPosition": counter, "size": tileWidth, "selected": false });
         idxBoard.push(`${i}-${j}`);
         counter++;
