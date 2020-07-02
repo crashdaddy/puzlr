@@ -12,6 +12,7 @@ import LoginIcon from '@material-ui/icons/LockOpenTwoTone';
 import { useHistory } from "react-router";
 import Talker from './Talker'
 import FavoriteIcon from '@material-ui/icons/FavoriteTwoTone';
+import Avatar from "./avatar/Avatar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,7 +72,11 @@ export default function NavBar(props) {
               {<Link className="nav-link" to="/search"><ImageSearchIcon style={{ color: "#ffffff" }} /></Link>}
             </li>
             <li className="nav-list-item">
-              {<Link className="nav-link" to="/login"><LoginIcon style={{ color: "#ffffff" }} /></Link>}
+              {props.player ? 
+              <Link to={`/profile/${props.player.userName}`} ><Avatar name={props.player.userName} size={35}/></Link>
+              :
+              <Link className="nav-link" to="/login"><LoginIcon style={{ color: "#ffffff" }} /></Link>
+              }
             </li>
           </ul>
         </Toolbar>

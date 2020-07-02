@@ -4,6 +4,7 @@ import CheatModeOffIcon from '@material-ui/icons/GridOffTwoTone';
 import CheatModeOnIcon from '@material-ui/icons/GridOnTwoTone';
 import FavoriteIcon from '@material-ui/icons/FavoriteTwoTone';
 import Avatar from '../avatar/Avatar';
+import StartOverIcon from '@material-ui/icons/Cached';
 
 class LeftPanel extends Component {
 
@@ -19,6 +20,7 @@ class LeftPanel extends Component {
                 
                 <img className="referencePic" src={this.props.referenceImage} alt='' />
                 <div>
+                    <StartOverIcon onClick={this.props.createBoard} fontSize="large" color="action" />
                     {this.props.cheatMode ?
                         <CheatModeOnIcon onClick={this.props.toggleCheat} fontSize="large" color="primary" />
                         :
@@ -32,7 +34,7 @@ class LeftPanel extends Component {
 
                     }
                 </div>
-                <BoardSizer changeBoardSize={this.props.changeBoardSize} />
+                <BoardSizer boardSize={this.props.boardSize} changeBoardSize={this.props.changeBoardSize} />
                 {this.props.gameOver ? <div style={{ fontSize: 'x-large' }}>You win in {this.props.moves} moves!</div>
                     :
                     <div style={{ fontSize: 'x-large' }}>Moves: {this.props.moves}</div>

@@ -46,10 +46,15 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-
+    
     this.props.sendMessage("You got this!")
     this.fetchImg();
-    this.createBoard();
+    if (this.props.player) {
+      this.setState({
+        boardWidth: this.props.player.boardPref,
+        boardHeight: this.props.player.boardPref
+      },()=>this.createBoard())
+    } else this.createBoard()
   }
   
   getRecord = (puzzleID, boardSize) => {
@@ -294,8 +299,7 @@ class App extends Component {
   changeBoardSize = (newSize) => {
     this.setState({
       boardWidth: newSize,
-      boardHeight: newSize,
-      moves: 0
+      boardHeight: newSize
     },
       this.createBoard);
   }
@@ -481,6 +485,7 @@ class App extends Component {
   }
 
   createBoard = () => {
+ 
     let board = [];
     let idxBoard = [];
     let boardWidth = this.state.boardWidth;
@@ -501,6 +506,7 @@ class App extends Component {
 
     this.shuffleBoard(board);
     this.setState({
+      moves: 0,
       gameOver: false,
       board: board,
       indexBoard: idxBoard
@@ -517,7 +523,7 @@ class App extends Component {
       <div>
         {this.state.authorObject ?
           <div className="App">
-            <LeftPanel currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
+            <LeftPanel createBoard={this.createBoard} boardSize={this.state.boardWidth} currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
             <div className="gameBoard" style={{ width: `${boardDim}px`, height: `${boardDim}px` }}>
               <GameBoard rowRight={this.rowRight} rowLeft={this.rowLeft} colUp={this.colUp} colDown={this.colDown} countMove={this.countMove} indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
             </div>

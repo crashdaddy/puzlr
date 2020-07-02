@@ -5,6 +5,7 @@ import App from './containers/App';
 import Login from './containers/Login'
 import PuzzlePicker from './containers/PuzzlePicker';
 import Favorites from './containers/Favorites';
+import Profile from './containers/Profile';
 
 const Router = () => {
     return (
@@ -15,6 +16,7 @@ const Router = () => {
             <Route path="/puzzle/:id?" render={(props) => <App {...props}  key={Date.now()} />}/>
             <Route path="/login" component={Login}/>
             <Route path="/faves" component={Favorites}/>
+            <Route path="/profile/:user" component={Profile} />
         </Switch>
     )
 }

@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BoardSizer({ changeBoardSize }) {
+export default function BoardSizer({ boardSize, changeBoardSize }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    boardWidth: '4',
+    boardWidth: boardSize
   });
 
   const handleChange = (event) => {
