@@ -56,6 +56,32 @@ class App extends Component {
       },()=>this.createBoard())
     } else this.createBoard()
   }
+
+  checkFavorite = (puzzleID) => {
+    let checkFaveURL = "https://puzzlrapi.herokuapp.com/checkFavorite";
+
+    let queryParams = {
+      "id" : this.props.player.id,
+      "puzzleID": puzzleID
+    }
+
+    fetch(checkFaveURL, {
+      method: 'post',
+      body: JSON.stringify(queryParams),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response=>response.json())
+    .then(data => {
+      console.log(data)
+      if(data.fave) {
+        this.setState({
+          favorite: true
+        }) 
+      }
+    })
+  }
   
   getRecord = (puzzleID, boardSize) => {
     let recordUrl = "https://puzzlrapi.herokuapp.com/getRecord"
@@ -307,8 +333,9 @@ class App extends Component {
   fetchImg = () => {
     let tempImg = new Image();
     let imgUrl = this.state.imgPic
+    let photoID = ''
     if (!this.props.puzzle) {
-      let photoID = this.props.match.params.id;
+      photoID = this.props.match.params.id;
       let queryParams = {
         "photoID": photoID
       }
@@ -326,7 +353,7 @@ class App extends Component {
       })
         .then(res => res.json())
         .then((data) => {
-          
+          photoID=data.id;
           this.props.addPuzzle(data)
           this.setState({
             puzzleId: data.id,
@@ -338,6 +365,7 @@ class App extends Component {
           imgUrl = data.urls.raw;
         })
     } else {
+      photoID=this.props.puzzle.id;
       this.setState({
         puzzleId: this.props.puzzle.id,
         authorObject: this.props.puzzle,
@@ -345,6 +373,9 @@ class App extends Component {
       })
       this.triggerDownload(this.props.puzzle.links.download_location);
       this.getRecord(this.props.puzzle.id, this.state.boardWidth);
+    }
+    if (this.props.player){
+    this.checkFavorite(photoID);
     }
     tempImg.src = imgUrl;
   }
