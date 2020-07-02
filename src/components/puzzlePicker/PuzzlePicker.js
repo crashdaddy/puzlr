@@ -132,7 +132,7 @@ class PuzzlePicker extends Component {
             </div>
             <div className="puzzlePickerResultsLayout">
               {puzzleList.map((puzzle, idx) => <Paper key={idx} className="puzzlePickerDiv" elevation={3} >
-                <img src={`${puzzle.urls.full}&w=150`} id={puzzle.id} className="searchResultsImg" alt="" onClick={this.puzzlePick} />
+                <img src={`${puzzle.urls.small}&w=150`} id={puzzle.id} className="searchResultsImg" alt="" onClick={this.puzzlePick} />
                 <div style={{ width: '90%', fontSize: 'small', fontWeight: 'bold', margin: '2px auto',padding:'5px' }}>{puzzle.alt_description}</div>
                 <div style={{padding:'5px'}}><i>Photo by: <a href={`${puzzle.user.links.html}?utm_source=puzzlr&utm_medium=referral`} target="blank"><strong>{puzzle.user.username}</strong></a> on <a href="https://unsplash.com/?utm_source=puzzlr&utm_medium=referral">Unsplash</a></i></div>
                 {/* <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p> */}
