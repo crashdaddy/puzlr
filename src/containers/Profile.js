@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
     import Profile from '../components/profile/Profile'
-    import {addUser, addPuzzle, sendMessage} from '../redux/actions'
+    import {addUser, clearPuzzle, sendMessage} from '../redux/actions'
 
     const mapStateToProps = (state) => {
         return {
@@ -13,6 +13,8 @@ import { connect } from 'react-redux'
      const mapDispatchToProps = (dispatch) => {
         return {
             addUser: (user) => dispatch(addUser(user)),
+            sendMessage: (navText) => dispatch(sendMessage(navText)),
+            clearPuzzle: () => dispatch(clearPuzzle())
         }
     }
 

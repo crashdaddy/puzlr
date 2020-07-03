@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import UserInfo from './UserInfo';
+import History from './History';
 
 
 class Profile extends Component {
@@ -6,6 +8,7 @@ class Profile extends Component {
         super(props);
     
         this.state = {
+          userId: '',
           profileName: this.props.match.params.user,
           userGamesPlayed: 0,
           userScore: 0,
@@ -34,9 +37,9 @@ class Profile extends Component {
           .then(response => response.json())
           .then(data => {
             if (data.code == "200") {
-              console.log(data.data[0])
               if (data.data[0]) {
                 this.setState({
+                  userId: data.data[0].id,
                   userScore: data.data[0].score,
                   userBoardPref: data.data[0].boardpref,
                   userCreated: new Date(data.data[0].createdAt).toLocaleString(),
@@ -54,16 +57,12 @@ class Profile extends Component {
 
     render(){
         return(
-            <div style={{marginTop:'100px'}}>
-                
-                <img src={`https://robohash.org/${this.state.profileName}.png`} />
-         
-                 <h1>{this.state.profileName}'s profile</h1> 
-                 {this.state.userCreated ?
-                 <div>   
-                 <span>Created at: {this.state.userCreated.toLocaleString()}</span><br/>
-                 <span>Puzls solved: {this.state.userGamesPlayed}</span>
-                 </div>
+            <div>
+              {this.state.userCreated ? 
+              <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row'}}>
+              <UserInfo user={this.state} />
+              <History clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />
+              </div>
                  :
                  'not found'
                 }

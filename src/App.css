@@ -143,3 +143,24 @@ transform: translateX(-50%);
 .contactIcons {
   display: inline;
 }
+
+.profileInfo {
+  display: inline-block;
+  width: 30%;
+  margin: 20px;
+  padding:10px;
+  text-align: left;
+}
+
+.profilePicLg {
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 4px;
+  float: left;
+}
+
+.historyDiv {
+  width: 60%;
+  display: inline-block;
+}

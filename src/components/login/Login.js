@@ -39,6 +39,7 @@ class Login extends Component {
     .then(data => {
         if (data.code=="200") {
         this.props.sendMessage(`You are logged in as ${data.userName}`)
+        this.bake_cookie("player",data)
         this.props.addUser(data)
         this.setState({
             loading: false
@@ -51,15 +52,18 @@ class Login extends Component {
     })
 }
 
+bake_cookie(name, value) {
+  var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
+  document.cookie = cookie;
+  console.log("set cookie!", cookie)
+}
+
   login = (e) => {
     e.preventDefault()
     this.setState({
         loading: true
     })
-    // set cookie here
-    // set loggedIn = true and max-age = (one hour)
-    document.cookie = "loggedIn=true;max-age=3600*1000";
-    // window.location.replace("/")
+
     this.loginAPI();
   }
 

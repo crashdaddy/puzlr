@@ -45,7 +45,18 @@ class App extends Component {
     };
   }
 
+  read_cookie(name) {
+    var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+    result && (result = JSON.parse(result[1]));
+    return result;
+   }
+
   componentDidMount = () => {
+    console.log(this.read_cookie("player"));
+    if (this.read_cookie("player")) {
+      this.props.addUser(this.read_cookie("player"));
+      console.log("found cookie!", this.read_cookie("player"));
+    }
     
     this.props.sendMessage("You got this!")
     this.fetchImg();
@@ -94,7 +105,8 @@ class App extends Component {
       "movesCount": this.state.moves,
       "gameTime": "00:00:58",
       "board": this.state.boardWidth,
-      "puzzleURL": this.state.puzzleId
+      "puzzleURL": this.state.puzzleId,
+      "puzzlePic": this.state.authorObject.urls.small
     }
     console.log("QueryParams: ", queryParams);
     fetch(addToHistoryUrl, {
