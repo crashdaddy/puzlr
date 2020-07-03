@@ -74,13 +74,47 @@ class App extends Component {
     })
     .then(response=>response.json())
     .then(data => {
-      console.log(data)
       if(data.fave) {
         this.setState({
           favorite: true
         }) 
       }
     })
+  }
+
+  addToHistory = () => {
+    this.props.sendMessage("Good Job!");
+
+    let addToHistoryUrl = "https://puzzlrapi.herokuapp.com/addToHistory";
+
+    let queryParams = {
+      "userId": this.props.player.id,
+      "gameScore": 0,
+      "wasCheatModeUsed": this.state.cheatMode,
+      "movesCount": this.state.moves,
+      "gameTime": "00:00:58",
+      "board": this.state.boardWidth,
+      "puzzleURL": this.state.puzzleId
+    }
+    console.log("QueryParams: ", queryParams);
+    fetch(addToHistoryUrl, {
+      method: 'post',
+      body: JSON.stringify(queryParams),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code == "200") {
+          this.props.sendMessage("Your record has been saved!")
+        } else {
+          this.props.sendMessage(`We've encountered a problem: ${data.code}  adding your score.`);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      })
   }
   
   getRecord = (puzzleID, boardSize) => {
@@ -279,6 +313,8 @@ class App extends Component {
   }
 
 
+
+
   toggleFavorite = () => {
     if (this.props.player) {
       if (this.state.favorite === false) {
@@ -301,8 +337,9 @@ class App extends Component {
       moves: moves
     },()=>{
     if (this.winner(this.state.board)) {
-      this.gameOver();
+      this.addToHistory();
       this.checkRecord();
+      this.gameOver();
     }})
   }
 

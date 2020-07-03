@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
             navTalk: state.navTalk
         }
     }
-
+ 
      // added this function so we can send data FROM our component
      const mapDispatchToProps = (dispatch) => {
         return {

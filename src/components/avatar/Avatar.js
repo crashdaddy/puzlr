@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 
 // this function takes a string and uses
@@ -30,7 +31,8 @@ export default function Avatar(props) {
 
     return(
         <div style={{display:'inline'}}>
-            <img src={`https://robohash.org/${props.name}.png?set=set2`} style={avatarStyle} alt='' />
+           <Link to={`/profile/${props.name}`} ><img src={`https://robohash.org/${props.name}.png`} style={avatarStyle} alt='' /></Link>
+            
         </div>
     )
 

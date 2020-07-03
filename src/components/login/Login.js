@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './loginRegCSS.css';
 import loading from './ajax-loader.gif';
+import Avatar from '../avatar/Avatar';
+import {Link} from 'react-router-dom';
 
 import {
   TextField,
@@ -64,38 +66,43 @@ class Login extends Component {
   render() {
     return (
       <div className="loginDiv">
-        <Container maxWidth="sm">
-          <form className="login-form" onSubmit={this.login}>
-            <TextField
-              required
-              onChange={this.handleTextChange}
-              value={this.state.email}
-              name="email"
-              label="email"
-              type="email" />
-            <TextField
-              required
-              onChange={this.handleTextChange}
-              value={this.state.password}
-              name="password"
-              label="Password"
-              type="password" />
-              {this.state.loading ?
-              <img src={loading} alt='' style={{width:'24px'}}/>
-              :
-              ''
-              }
-            <Button
-              type="submit"
-              className="login-button"
-              variant="contained"
-              color="primary">Login</Button>
-          </form>
-        </Container>
+
         {this.props.player ?
-            <div style={{textAlign:'center'}}>Welcome back, {this.props.player.userName}</div>
+             <div style={{textAlign:'center'}}>
+            <div style={{textAlign:'center',fontSize:'xx-large',marginBottom:'20px'}}>Welcome back, {this.props.player.userName}<br/>
+            You've already solved {this.props.player.gamesPlayed} puzzles. Let's do one more!<br/>
+            </div>
+            <Link to={`/profile/${this.props.player.userName}`} ><Avatar name={this.props.player.userName} size={200} /></Link>
+            </div>
             :
-            ''
+            <Container maxWidth="sm">
+            <form className="login-form" onSubmit={this.login}>
+              <TextField
+                required
+                onChange={this.handleTextChange}
+                value={this.state.email}
+                name="email"
+                label="email"
+                type="email" />
+              <TextField
+                required
+                onChange={this.handleTextChange}
+                value={this.state.password}
+                name="password"
+                label="Password"
+                type="password" />
+                {this.state.loading ?
+                <img src={loading} alt='' style={{width:'24px'}}/>
+                :
+                ''
+                }
+              <Button
+                type="submit"
+                className="login-button"
+                variant="contained"
+                color="primary">Login</Button>
+            </form>
+            </Container>
             }
       </div>
     );
