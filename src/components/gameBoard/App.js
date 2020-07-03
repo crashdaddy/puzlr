@@ -52,10 +52,15 @@ class App extends Component {
    }
 
   componentDidMount = () => {
-    console.log(this.read_cookie("player"));
+    
     if (this.read_cookie("player")) {
-      this.props.addUser(this.read_cookie("player"));
-      console.log("found cookie!", this.read_cookie("player"));
+      let player = this.read_cookie("player")
+      this.props.addUser(player);
+      console.log("found cookie!", player);
+      this.setState({
+        boardWidth: player.boardPref,
+        boardHeight: player.boardPref
+      })
     }
     
     this.props.sendMessage("You got this!")
