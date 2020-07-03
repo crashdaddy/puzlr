@@ -52,7 +52,9 @@ class App extends Component {
    }
 
   componentDidMount = () => {
-    
+    this.props.sendMessage("You got this!")
+    this.fetchImg();
+
     if (this.read_cookie("player")) {
       let player = this.read_cookie("player")
       this.props.addUser(player);
@@ -60,17 +62,15 @@ class App extends Component {
       this.setState({
         boardWidth: player.boardPref,
         boardHeight: player.boardPref
-      })
+      }, ()=>this.createBoard())
     }
     
-    this.props.sendMessage("You got this!")
-    this.fetchImg();
     if (this.props.player) {
       this.setState({
         boardWidth: this.props.player.boardPref,
         boardHeight: this.props.player.boardPref
       },()=>this.createBoard())
-    } else this.createBoard()
+    } 
   }
 
   checkFavorite = (puzzleID) => {
