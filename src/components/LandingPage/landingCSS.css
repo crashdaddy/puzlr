@@ -24,11 +24,10 @@
 .bannerDiv {
     margin-top: 140px;
     width:100%;
-    font-size: 100px;
+    font-size: 80px;
     font-weight: 700;
-    color: blue;
     text-align: center;
-    background-color: #325aa870;
+    background-color: #3f51b570;
     -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3); 
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
 }
@@ -48,7 +47,7 @@ border-radius:15px;
 
 .logoBanner {
     width: 100%;
-    background-color: #325aa870;
+    background-color: #3f51b570;
     padding: 10px;
     text-align: center;
 }
@@ -61,7 +60,7 @@ border-radius:15px;
     font-size:80px;
     font-weight:bold;
     width: 100%;
-    background-color: #325aa870;
+    background-color: #3f51b570;
     padding: 10px;
     text-align: center;
 }
