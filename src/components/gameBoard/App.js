@@ -99,6 +99,7 @@ class App extends Component {
   }
 
   addToHistory = () => {
+    if(this.props.player) {
     this.props.sendMessage("Good Job!");
 
     let addToHistoryUrl = "https://puzzlrapi.herokuapp.com/addToHistory";
@@ -132,6 +133,7 @@ class App extends Component {
       .catch((error) => {
         console.error('Error:', error);
       })
+    } else this.props.sendMessage("You can't save your score if you're not logged in!")
   }
   
   getRecord = (puzzleID, boardSize) => {
