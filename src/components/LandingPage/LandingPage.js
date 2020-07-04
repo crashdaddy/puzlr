@@ -1,6 +1,6 @@
 import React from 'react';
 import logoPic from './img/Puzzlr-logo.png';
-import bigPic from './img/bigPic.png';
+import bigPic from './img/grid.png';
 import pic1 from './img/pic1.png';
 import pic2 from './img/pic2.png';
 import pic3 from './img/pic3.png';
