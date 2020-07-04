@@ -53,7 +53,7 @@ export default function NavBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h4" className={classes.title}>
-            Puzlr
+           <Link to={'/help'} style={{textDecoration:'none',color:'white'}}>Puzlr</Link>
           </Typography>
           <Talker navTalk={props.navTalk} />
           <ul className="nav-list">

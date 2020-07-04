@@ -22,11 +22,15 @@ TODO (short term):
    - [ ] favorites
    - [ ] records
    - [x] history
-   - [ ] if the person looking at the profile page is the user, then also display options for customizing their avatar
-- [ ] allow customization of avatar
-   - [ ] switch between [Robohash](https://robohash.org/) sets
+   - [ ] ~~if the person looking at the profile page is the user, then also display options for customizing their avatar~~
+- [ ] ~~allow customization of avatar~~
+   - [ ] ~~switch between [Robohash](https://robohash.org/) sets~~
 
     (cancelled this because all the sets at Robohash weren't complete)
+
+- Add a landing page for first-timers (right now it goes straight to the search page)
+
+- Add scoring system. It already tracks number of moves, but now it'll award a $score based on number of moves and grid size
     
 - [ ] add search by puzzle ID
 
