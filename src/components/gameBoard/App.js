@@ -55,7 +55,14 @@ class App extends Component {
     this.props.sendMessage("You got this!")
     this.fetchImg();
 
-    if (this.read_cookie("player")) {
+   
+    
+    if (this.props.player) {
+      this.setState({
+        boardWidth: this.props.player.boardPref,
+        boardHeight: this.props.player.boardPref
+      },()=>this.createBoard())
+    } else  if (this.read_cookie("player")) {
       let player = this.read_cookie("player")
       this.props.addUser(player);
       console.log("found cookie!", player);
@@ -63,14 +70,7 @@ class App extends Component {
         boardWidth: player.boardPref,
         boardHeight: player.boardPref
       }, ()=>this.createBoard())
-    }
-    
-    if (this.props.player) {
-      this.setState({
-        boardWidth: this.props.player.boardPref,
-        boardHeight: this.props.player.boardPref
-      },()=>this.createBoard())
-    } 
+    } else this.createBoard();
   }
 
   checkFavorite = (puzzleID) => {
