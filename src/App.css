@@ -145,11 +145,16 @@ transform: translateX(-50%);
 }
 
 .profileInfo {
+  border-radius: 5px;
   display: inline-block;
+  height: 600px;
   width: 30%;
   margin: 20px;
   padding:10px;
   text-align: left;
+  font-size: x-large;
+  font-weight: 700;
+  text-align: center;
 }
 
 .profilePicLg {
@@ -163,4 +168,25 @@ transform: translateX(-50%);
 .historyDiv {
   width: 60%;
   display: inline-block;
+}
+
+.historyPaper {
+  padding:4px 10px 10px 30px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.historyPicSm {
+  border:1px solid black;
+  border-radius: 5px;
+  margin-right:10px;
+  width:50px;
+  height:50px;
+  vertical-align:middle;
+}
+
+.historyPicSm:hover {
+  transform: scale(4);
+  transform-origin: top left;
 }

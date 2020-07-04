@@ -59,7 +59,7 @@ class Profile extends Component {
         return(
             <div>
               {this.state.userCreated ? 
-              <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row'}}>
+              <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row',justifyContent:'center'}}>
               <UserInfo user={this.state} />
               <History clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />
               </div>

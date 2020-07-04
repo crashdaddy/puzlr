@@ -2,7 +2,7 @@
 
     width:100%;
     text-align:center;
-    margin-top:100px;
+    margin-top:140px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,16 +22,46 @@
 }
 
 .bannerDiv {
-    margin-top: 100px;
+    margin-top: 140px;
     width:100%;
     font-size: 100px;
     font-weight: 700;
     color: blue;
     text-align: center;
+    background-color: #325aa870;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3); 
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
 }
 
 .bigPicDiv {
     width:80%;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 140px;
+}
+
+.bigPic {
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3); 
+box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
+width:70%;
+border-radius:15px;
+}
+
+.logoBanner {
+    width: 100%;
+    background-color: #325aa870;
+    padding: 10px;
+    text-align: center;
+}
+
+.bottomBanner {
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3); 
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
+    margin-top:140px;
+    margin-bottom:100px;
+    font-size:80px;
+    font-weight:bold;
+    width: 100%;
+    background-color: #325aa870;
+    padding: 10px;
+    text-align: center;
 }

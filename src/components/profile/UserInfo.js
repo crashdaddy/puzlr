@@ -8,11 +8,11 @@ class UserInfo extends Component {
                 <Paper className="profileInfo" elevation={3} >
                  <img className="profilePicLarge" alt='' src={`https://robohash.org/${this.props.user.profileName}.png`} />
          
-                 <h1>{this.props.user.profileName}'s profile</h1> 
+                 <h1>{this.props.user.profileName}</h1> 
                  <div>   
-                 <span>Created at: {this.props.user.userCreated.toLocaleString()}</span><br/>
-                <span>Puzls solved: {this.props.user.userGamesPlayed}</span><br/>
-                <span>Score: ${this.props.user.userScore}</span>
+                 <span>Joined: {this.props.user.userCreated.toLocaleString()}</span><br/>
+                <span>Puzls unpuzld: {this.props.user.userGamesPlayed}</span><br/>
+                <span>Score: <span style={{color:'green'}}>${this.props.user.userScore}</span></span>
                 </div>
                 </Paper>
         )

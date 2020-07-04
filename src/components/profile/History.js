@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CheatModeOffIcon from '@material-ui/icons/GridOffTwoTone';
 import CheatModeOnIcon from '@material-ui/icons/GridOnTwoTone';
 import { Redirect } from "react-router";
+import Paper from '@material-ui/core/Paper';
 
 class History extends Component {
     constructor(props) {
@@ -65,27 +66,29 @@ class History extends Component {
           }
         return ( 
             <div className="historyDiv">
+              <Paper className="historyPaper" elevation={3}>
                 <h1>{this.props.userName}'s History</h1>
                 {
                
                 this.state.userHistory.length>0 ?
                 <div>
                 {this.state.userHistory.map(game => 
-                    <div onClick={()=>this.selectPuzzle(game.puzzleURL)} style={{verticalAlign:'middle',fontSize:'x-large',fontWeight:'bold',marginTop:'20px'}}>
-                        <img src={game.puzzlePic} alt='' style={{marginRight:'10px',width:'50px',height:'50px',verticalAlign:'middle'}}/>
+                    <div onClick={()=>this.selectPuzzle(game.puzzleURL)} style={{verticalAlign:'middle',fontSize:'large',fontWeight:'bold',marginTop:'20px'}}>
+                        <img className="historyPicSm" src={game.puzzlePic} alt='' />
                         {game.gameTime} - {game.movesCount} 
                         {game.wasCheatModeUsed ?
-                        <CheatModeOnIcon  fontSize="large" color="primary" style={{verticalAlign:'middle',margin:'0 10px'}}/>
+                        <CheatModeOnIcon  fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>
                         :
-                        <CheatModeOffIcon  fontSize="large" color="action" style={{verticalAlign:'middle',margin:'0 10px'}}/>    
+                        <CheatModeOffIcon  fontSize="small" color="action" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>    
                         }
-                        - ${game.gameScore} - {game.board}x{game.board} - {new Date(game.savedAt).toLocaleString()}
+                        - <span style={{color:'green'}}>${game.gameScore}</span> - {game.board}x{game.board} - {new Date(game.savedAt).toLocaleString()}
                     </div>
                 )}
                 </div>
                 :
                 <h1>This player has no solved puzls on record!</h1>
                 }
+                </Paper>
             </div>
         )
     }
