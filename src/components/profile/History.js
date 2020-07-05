@@ -75,8 +75,8 @@ class History extends Component {
                 {this.state.userHistory.map(game => 
                     <div onClick={()=>this.selectPuzzle(game.puzzleURL)} style={{verticalAlign:'middle',fontSize:'large',fontWeight:'bold',marginTop:'20px'}}>
                         <img className="historyPicSm" src={game.puzzlePic} alt='' />
-                        {/* <TimerIcon  fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>
-                        {game.gameTime} -  */}
+                        <TimerIcon  fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>
+                        {game.gameTime} - 
                         <Moves fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 2px 4px 5px'}} /> {game.movesCount} - 
                         {game.wasCheatModeUsed ?
                         <CheatModeOnIcon  fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>

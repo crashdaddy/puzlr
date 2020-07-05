@@ -5,8 +5,8 @@ import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
+    margin: '0px 4px 1px 4px',
+    minWidth: 60,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -25,7 +25,7 @@ export default function BoardSizer({ boardSize, changeBoardSize }) {
   };
 
   return (
-    <div>
+    <div style={{display:'inline-block'}}>
       <FormControl className={classes.formControl}>
         {/* <InputLabel htmlFor="age-native-simple">Board Size</InputLabel> */}
         <Select

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: digital-7;
+  src: url('./components/gameBoard/css/digital-7.regular.ttf');
+}
+
 .App {
   display: flex;
   flex-direction: row;
@@ -194,4 +199,14 @@ transform: translateX(-50%);
 .historyPicSm:hover {
   transform: scale(4);
   transform-origin: top left;
+}
+
+.timer {
+  font-family: digital-7;
+  background-color: black;
+  border: 1px solid yellow;
+  color: red;
+  padding:4px;
+  width: 140px;
+  margin: 0px auto;
 }

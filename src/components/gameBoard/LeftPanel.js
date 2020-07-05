@@ -7,6 +7,7 @@ import Avatar from '../avatar/Avatar';
 import StartOverIcon from '@material-ui/icons/Cached';
 import Moves from '@material-ui/icons/OpenWith';
 import money from '../img/moneyBag.png';
+import TimerIcon from '@material-ui/icons/Timer';
 
 class LeftPanel extends Component {
 
@@ -19,10 +20,10 @@ class LeftPanel extends Component {
                     :
                     <div>You are not <a href="/login">logged in</a></div>
                 }
-                
-                <img className="referencePic" src={this.props.referenceImage} alt='' />
-                <div>
+               <img className="referencePic" src={this.props.referenceImage} alt='' />
+                <div style={{display:'inline-flex',flexDirection:'row',justifyContent:'space-around'}}>
                     <StartOverIcon onClick={this.props.createBoard} fontSize="large" color="action" />
+                    <TimerIcon onClick={this.props.toggleTime} fontSize="large" color="action"/>
                     {this.props.cheatMode ?
                         <CheatModeOnIcon onClick={this.props.toggleCheat} fontSize="large" color="primary" />
                         :
@@ -35,14 +36,17 @@ class LeftPanel extends Component {
                         <FavoriteIcon onClick={this.props.toggleFavorite} fontSize="large" color="disabled" />
 
                     }
+                    <BoardSizer boardSize={this.props.boardSize} changeBoardSize={this.props.changeBoardSize} />
                 </div>
-                <BoardSizer boardSize={this.props.boardSize} changeBoardSize={this.props.changeBoardSize} />
+                
                 {this.props.gameOver ? <div style={{ fontSize: 'x-large' }}>You win in {this.props.moves} moves!<br/>
-                <img src={money} style={{margin:'0px 6px 8px 4px',width:'20px',verticalAlign:'middle'}} /><span style={{color:'green',fontWeight:'bold'}}> ${this.props.score}</span>
+                <img src={money} style={{margin:'0px 6px 8px 4px',width:'20px',verticalAlign:'middle'}} /><span style={{color:'green',fontWeight:'bold'}}> ${this.props.score}</span><br/>
+                <div className="timer">{this.props.gameTime}</div>
                 </div>
                     :
                     <div style={{ fontSize: 'x-large' }}>
-                        <Moves fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 2px 4px 5px'}} />  {this.props.moves}<br/>
+                        <Moves fontSize="xx-large" color="primary" style={{verticalAlign:'middle',margin:'0 2px 4px 5px'}} /> <span style={{fontSize:'xx-large',verticalAlign:'middle'}}>{this.props.moves}</span> <br/>
+                        <div className="timer">{this.props.gameTime}</div>
                     </div>
                 }
                 {this.props.currentRecord ? 

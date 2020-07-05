@@ -65,7 +65,7 @@ class GameBoard extends Component {
   clearSelected = (clickedTile, id) => {
     if (!this.props.gameOver) {
       let stateBoard = this.props.board;
-
+      this.props.timer();
       stateBoard.forEach(tile => {
         if (tile.tile === clickedTile) {
           tile.selected = !tile.selected

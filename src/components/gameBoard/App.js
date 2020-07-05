@@ -22,6 +22,8 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// set variables for the timer
+let seconds = 0, minutes = 0, hours = 0, t;
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +32,8 @@ class App extends Component {
     this.state = {
       gameOver: false,
       cheatMode: false,
+      clockRunning: false,
+      gameTime: '00:00:00',
       wasCheatModeUsed: false,
       score: 0,
       moves: 0,
@@ -51,34 +55,72 @@ class App extends Component {
     var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
     result && (result = JSON.parse(result[1]));
     return result;
-   }
-
-   
+  }
 
   componentDidMount = () => {
+    this.clearTimer();
     this.props.sendMessage("You got this!")
     this.fetchImg();
-   
+
     if (this.props.player) {
       this.setState({
         boardWidth: this.props.player.boardPref,
         boardHeight: this.props.player.boardPref
-      },()=>this.createBoard())
-    } else  if (this.read_cookie("player")) {
+      }, () => this.createBoard())
+    } else if (this.read_cookie("player")) {
       let player = this.read_cookie("player")
       this.props.addUser(player);
       this.setState({
         boardWidth: player.boardPref,
         boardHeight: player.boardPref
-      }, ()=>this.createBoard())
+      }, () => this.createBoard())
     } else this.createBoard();
+  }
+
+  add = () => {
+    if (!this.state.gameOver) {
+      seconds++;
+      if (seconds >= 100) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+          minutes = 0;
+          hours++;
+        }
+      }
+      this.setState({ gameTime: (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) });
+      this.timer();
+    }
+  }
+
+  stopTime = () => {
+    this.setState({ clockRunning: false });
+    clearTimeout(t);
+  }
+
+  timer = () => {
+    this.setState({ clockRunning: true });
+    t = setTimeout(this.add, 10);
+  }
+
+  clearTimer = () => {
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    this.setState({ gameTime: "00:00:00" });
+  }
+
+  toggleTime = () => {
+    if (this.state.clockRunning) {
+      this.stopTime()
+    } else { this.timer() }
   }
 
   checkFavorite = (puzzleID) => {
     let checkFaveURL = "https://puzzlrapi.herokuapp.com/checkFavorite";
 
     let queryParams = {
-      "id" : this.props.player.id,
+      "id": this.props.player.id,
       "puzzleID": puzzleID
     }
 
@@ -89,53 +131,53 @@ class App extends Component {
         "Content-Type": "application/json"
       }
     })
-    .then(response=>response.json())
-    .then(data => {
-      if(data.fave) {
-        this.setState({
-          favorite: true
-        }) 
-      }
-    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.fave) {
+          this.setState({
+            favorite: true
+          })
+        }
+      })
   }
 
   addToHistory = () => {
-    if(this.props.player) {
-    this.props.sendMessage("Good Job!");
+    if (this.props.player) {
+      this.props.sendMessage("Good Job!");
 
-    let addToHistoryUrl = "https://puzzlrapi.herokuapp.com/addToHistory";
+      let addToHistoryUrl = "https://puzzlrapi.herokuapp.com/addToHistory";
       console.log("adding to history with score: ", this.state.score)
-    let queryParams = {
-      "userId": this.props.player.id,
-      "gameScore": this.state.score,
-      "wasCheatModeUsed": this.state.wasCheatModeUsed,
-      "movesCount": this.state.moves,
-      "gameTime": "00:00:58",
-      "board": this.state.boardWidth,
-      "puzzleURL": this.state.puzzleId,
-      "puzzlePic": this.state.authorObject.urls.small
-    }
-    fetch(addToHistoryUrl, {
-      method: 'post',
-      body: JSON.stringify(queryParams),
-      headers: {
-        "Content-Type": "application/json"
+      let queryParams = {
+        "userId": this.props.player.id,
+        "gameScore": this.state.score,
+        "wasCheatModeUsed": this.state.wasCheatModeUsed,
+        "movesCount": this.state.moves,
+        "gameTime": this.state.gameTime,
+        "board": this.state.boardWidth,
+        "puzzleURL": this.state.puzzleId,
+        "puzzlePic": this.state.authorObject.urls.small
       }
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.code == "200") {
-          this.props.sendMessage("Your record has been saved!")
-        } else {
-          this.props.sendMessage(`We've encountered a problem: ${data.code}  adding your score.`);
+      fetch(addToHistoryUrl, {
+        method: 'post',
+        body: JSON.stringify(queryParams),
+        headers: {
+          "Content-Type": "application/json"
         }
       })
-      .catch((error) => {
-        console.error('Error:', error);
-      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.code == "200") {
+            this.props.sendMessage("Your record has been saved!")
+          } else {
+            this.props.sendMessage(`We've encountered a problem: ${data.code}  adding your score.`);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        })
     } else this.props.sendMessage("You can't save your score if you're not logged in!")
   }
-  
+
   getRecord = (puzzleID, boardSize) => {
     let recordUrl = "https://puzzlrapi.herokuapp.com/getRecord"
 
@@ -233,7 +275,7 @@ class App extends Component {
   }
 
   checkRecord = () => {
-      if (this.props.player) {
+    if (this.props.player) {
       if (this.state.moves < this.state.currentRecord) {
         this.setState({
           currentRecord: this.state.moves,
@@ -331,9 +373,6 @@ class App extends Component {
       })
   }
 
-
-
-
   toggleFavorite = () => {
     if (this.props.player) {
       if (this.state.favorite === false) {
@@ -354,11 +393,12 @@ class App extends Component {
     let moves = this.state.moves + 1;
     this.setState({
       moves: moves
-    },()=>{
-    if (this.winner(this.state.board)) {
-      this.gameOver();
-      this.checkRecord();
-    }})
+    }, () => {
+      if (this.winner(this.state.board)) {
+        this.gameOver();
+        this.checkRecord();
+      }
+    })
   }
 
   toggleCheat = () => {
@@ -375,23 +415,25 @@ class App extends Component {
 
   gameOver = () => {
 
-        // get the scale for the scores
+    this.stopTime()
+
+    // get the scale for the scores
     // it's dependent on board size
     let scoreMultiplier = 1;
-    let boardWidth=this.state.boardWidth;
-    if (boardWidth==2) scoreMultiplier=10;
-    if (boardWidth==3) scoreMultiplier=25;
-    if (boardWidth==4||boardWidth==5) scoreMultiplier=100;
-    if (boardWidth==6||boardWidth==7) scoreMultiplier=200;
-    if (boardWidth==8||boardWidth==9) scoreMultiplier=300;
+    let boardWidth = this.state.boardWidth;
+    if (boardWidth == 2) scoreMultiplier = 10;
+    if (boardWidth == 3) scoreMultiplier = 25;
+    if (boardWidth == 4 || boardWidth == 5) scoreMultiplier = 100;
+    if (boardWidth == 6 || boardWidth == 7) scoreMultiplier = 200;
+    if (boardWidth == 8 || boardWidth == 9) scoreMultiplier = 300;
 
-        // calculate the score
-    let gameScore= (boardWidth*scoreMultiplier)-this.state.moves;
-        if (gameScore<0) gameScore=0;
+    // calculate the score
+    let gameScore = (boardWidth * scoreMultiplier) - this.state.moves;
+    if (gameScore < 0) gameScore = 0;
     this.setState({
       gameOver: true,
       score: gameScore
-    }, ()=> this.addToHistory())
+    }, () => this.addToHistory())
   }
 
   changeBoardSize = (newSize) => {
@@ -411,12 +453,12 @@ class App extends Component {
       let queryParams = {
         "photoID": photoID
       }
-      
-      let photoUrl = `https://puzzlrapi.herokuapp.com/getSingleImage` 
+
+      let photoUrl = `https://puzzlrapi.herokuapp.com/getSingleImage`
       if (!photoID || photoID === '') {
-        photoUrl =  `https://puzzlrapi.herokuapp.com/getRandomImage` 
+        photoUrl = `https://puzzlrapi.herokuapp.com/getRandomImage`
       }
-      fetch(photoUrl,{
+      fetch(photoUrl, {
         method: 'post',
         body: JSON.stringify(queryParams),
         headers: {
@@ -425,7 +467,7 @@ class App extends Component {
       })
         .then(res => res.json())
         .then((data) => {
-          photoID=data.id;
+          photoID = data.id;
           this.props.addPuzzle(data)
           this.setState({
             puzzleId: data.id,
@@ -437,7 +479,7 @@ class App extends Component {
           imgUrl = data.urls.raw;
         })
     } else {
-      photoID=this.props.puzzle.id;
+      photoID = this.props.puzzle.id;
       this.setState({
         puzzleId: this.props.puzzle.id,
         authorObject: this.props.puzzle,
@@ -446,8 +488,8 @@ class App extends Component {
       this.triggerDownload(this.props.puzzle.links.download_location);
       this.getRecord(this.props.puzzle.id, this.state.boardWidth);
     }
-    if (this.props.player){
-    this.checkFavorite(photoID);
+    if (this.props.player) {
+      this.checkFavorite(photoID);
     }
     tempImg.src = imgUrl;
   }
@@ -588,7 +630,7 @@ class App extends Component {
   }
 
   createBoard = () => {
- 
+
     let board = [];
     let idxBoard = [];
     let boardWidth = this.state.boardWidth;
@@ -626,9 +668,9 @@ class App extends Component {
       <div>
         {this.state.authorObject ?
           <div className="App">
-            <LeftPanel createBoard={this.createBoard} boardSize={this.state.boardWidth} currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} score={this.state.score} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
+            <LeftPanel toggleTime={this.toggleTime} gameTime={this.state.gameTime} createBoard={this.createBoard} boardSize={this.state.boardWidth} currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} score={this.state.score} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
             <div className="gameBoard" style={{ width: `${boardDim}px`, height: `${boardDim}px` }}>
-              <GameBoard gameOver={this.state.gameOver} rowRight={this.rowRight} rowLeft={this.rowLeft} colUp={this.colUp} colDown={this.colDown} countMove={this.countMove} indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
+              <GameBoard timer={this.timer} gameOver={this.state.gameOver} rowRight={this.rowRight} rowLeft={this.rowLeft} colUp={this.colUp} colDown={this.colDown} countMove={this.countMove} indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
             </div>
             <RightPanel authorObject={this.state.authorObject.user} />
           </div>
