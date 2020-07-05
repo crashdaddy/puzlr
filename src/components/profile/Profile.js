@@ -58,7 +58,7 @@ class Profile extends Component {
     render(){
         return(
             <div>
-              {this.state.userCreated ? 
+              {this.props.player ? 
               <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row',justifyContent:'center'}}>
               <UserInfo addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
               <History clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />
