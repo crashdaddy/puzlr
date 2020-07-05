@@ -17,8 +17,14 @@ class Profile extends Component {
         };
       }
 
+      read_cookie(name) {
+        var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+        result && (result = JSON.parse(result[1]));
+        return result;
+      }
+
       componentDidMount = () => {
-        this.getUser();
+          this.getUser();
       }
 
       getUser = () => {
@@ -58,7 +64,7 @@ class Profile extends Component {
     render(){
         return(
             <div>
-              {this.props.player ? 
+              {this.state.userCreated ? 
               <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row',justifyContent:'center'}}>
               <UserInfo addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
               <History clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />

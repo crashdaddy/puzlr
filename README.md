@@ -10,7 +10,10 @@ Current features:
   - high score tracking on the puzzle
   - random puzzle
   - cheat mode
-
+  -- user profiles (have to be logged in to see)
+  -- timer and time tracking
+  -- refresh same puzle
+  
 TODO (short term): 
 
  - [x] ** Important ** With the current system of shuffling it's possible to end up with two tiles switched on the
@@ -28,9 +31,9 @@ TODO (short term):
 
     (cancelled this because all the sets at Robohash weren't complete)
 
-- Add a landing page for first-timers (right now it goes straight to the search page)
+- [x] Add a landing page for first-timers (right now it goes straight to the search page)
 
-- Add scoring system. It already tracks number of moves, but now it'll award a $score based on number of moves and grid size
+- [x] Add scoring system. It already tracks number of moves, but now it'll award a $score based on number of moves and grid size
     
 - [ ] add search by puzzle ID
 
@@ -38,6 +41,6 @@ TODO (long term):
 
  - allow user to return to same puzzle after logging in
  - allow user to login after a win and still save the win
- - allow following a link to a specific puzzle from an external source to maintain your logged-in state
+ - [x] allow following a link to a specific puzzle from an external source to maintain your logged-in state
 
 Sheesh...that's great, but what're we gonna do _after_ lunch?
