@@ -29,6 +29,7 @@ class Profile extends Component {
         player = this.read_cookie("player");
         console.log("player ",player)
         this.props.addUser(player);
+        this.props.sendMessage(`Logged in as ${player.userName}`);
         }
 
           this.getUser();
