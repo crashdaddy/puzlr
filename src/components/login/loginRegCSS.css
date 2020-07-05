@@ -1,5 +1,6 @@
 .loginDiv {
     margin: 100px auto;
+    text-align: center;
 }
 .login-form {
     display: flex;
@@ -9,5 +10,16 @@
   }
   
   .login-button {
+    margin-top: 25px !important;
+  }
+
+  .reg-form {
+    display: flex;
+    flex-direction: column;
+    margin: 50px auto;
+    width: 50%;
+  }
+  
+  .reg-button {
     margin-top: 25px !important;
   }

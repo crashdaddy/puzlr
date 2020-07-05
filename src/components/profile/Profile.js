@@ -41,7 +41,7 @@ class Profile extends Component {
                 this.setState({
                   userId: data.data[0].id,
                   userScore: data.data[0].totalScore,
-                  userBoardPref: data.data[0].boardpref,
+                  userBoardPref: data.data[0].boardPref,
                   userCreated: new Date(data.data[0].createdAt).toLocaleString(),
                   userGamesPlayed: data.data[0].gamesPlayed
                 })
@@ -60,7 +60,7 @@ class Profile extends Component {
             <div>
               {this.state.userCreated ? 
               <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row',justifyContent:'center'}}>
-              <UserInfo user={this.state} />
+              <UserInfo addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
               <History clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />
               </div>
                  :
