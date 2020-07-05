@@ -80,7 +80,7 @@ class App extends Component {
   add = () => {
     if (!this.state.gameOver) {
       seconds++;
-      if (seconds >= 100) {
+      if (seconds >= 10) {
         seconds = 0;
         minutes++;
         if (minutes >= 60) {
@@ -88,7 +88,7 @@ class App extends Component {
           hours++;
         }
       }
-      this.setState({ gameTime: (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) });
+      this.setState({ gameTime: (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : seconds + "0") });
       this.timer();
     }
   }
@@ -670,7 +670,7 @@ class App extends Component {
           <div className="App">
             <LeftPanel toggleTime={this.toggleTime} gameTime={this.state.gameTime} createBoard={this.createBoard} boardSize={this.state.boardWidth} currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} score={this.state.score} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
             <div className="gameBoard" style={{ width: `${boardDim}px`, height: `${boardDim}px` }}>
-              <GameBoard timer={this.timer} gameOver={this.state.gameOver} rowRight={this.rowRight} rowLeft={this.rowLeft} colUp={this.colUp} colDown={this.colDown} countMove={this.countMove} indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
+              <GameBoard timer={this.timer} clockRunning={this.state.clockRunning} gameOver={this.state.gameOver} rowRight={this.rowRight} rowLeft={this.rowLeft} colUp={this.colUp} colDown={this.colDown} countMove={this.countMove} indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
             </div>
             <RightPanel authorObject={this.state.authorObject.user} />
           </div>
