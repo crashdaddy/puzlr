@@ -24,6 +24,13 @@ class Profile extends Component {
       }
 
       componentDidMount = () => {
+        let player={};
+        if (this.read_cookie("player")) {
+        player = this.read_cookie("player");
+        console.log("player ",player)
+        this.props.addUser(player);
+        }
+
           this.getUser();
       }
 
