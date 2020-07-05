@@ -650,6 +650,7 @@ class App extends Component {
     }
 
     this.shuffleBoard(board);
+    this.clearTimer();
     this.setState({
       moves: 0,
       gameOver: false,
