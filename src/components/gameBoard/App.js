@@ -100,7 +100,7 @@ class App extends Component {
 
   timer = () => {
     this.setState({ clockRunning: true });
-    t = setTimeout(this.add, 10);
+    t = setTimeout(this.add, 100);
   }
 
   clearTimer = () => {
