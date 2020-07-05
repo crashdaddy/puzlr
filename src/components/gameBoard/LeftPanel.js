@@ -5,6 +5,8 @@ import CheatModeOnIcon from '@material-ui/icons/GridOnTwoTone';
 import FavoriteIcon from '@material-ui/icons/FavoriteTwoTone';
 import Avatar from '../avatar/Avatar';
 import StartOverIcon from '@material-ui/icons/Cached';
+import Moves from '@material-ui/icons/OpenWith';
+import money from '../img/moneyBag.png';
 
 class LeftPanel extends Component {
 
@@ -35,12 +37,16 @@ class LeftPanel extends Component {
                     }
                 </div>
                 <BoardSizer boardSize={this.props.boardSize} changeBoardSize={this.props.changeBoardSize} />
-                {this.props.gameOver ? <div style={{ fontSize: 'x-large' }}>You win in {this.props.moves} moves!</div>
+                {this.props.gameOver ? <div style={{ fontSize: 'x-large' }}>You win in {this.props.moves} moves!<br/>
+                <img src={money} style={{margin:'0px 6px 8px 4px',width:'20px',verticalAlign:'middle'}} /><span style={{color:'green',fontWeight:'bold'}}> ${this.props.score}</span>
+                </div>
                     :
-                    <div style={{ fontSize: 'x-large' }}>Moves: {this.props.moves}</div>
+                    <div style={{ fontSize: 'x-large' }}>
+                        <Moves fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 2px 4px 5px'}} />  {this.props.moves}<br/>
+                    </div>
                 }
                 {this.props.currentRecord ? 
-                <div><u>Current Record:</u> <br/> <div style={{fontWeight:'bold'}}><Avatar name={this.props.currentRecordHolder} size={30}/> {this.props.currentRecordHolder}: {this.props.currentRecord} Moves</div></div>
+                <div><u>Current Record:</u> <br/> <div style={{fontWeight:'bold'}}><Avatar name={this.props.currentRecordHolder} size={30}/> {this.props.currentRecordHolder}:  <Moves fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 2px 4px 5px'}} />{this.props.currentRecord}</div></div>
                 :
                 <div>No current record for this board!</div>
                 }

@@ -99,6 +99,11 @@ height: 220px;
   margin:0px auto;
 }
 
+.referencePic:hover {
+  transform: scale(2);
+  transform-origin: top left;
+}
+
 .noDataDiv {
   width:50%;
   margin: 100px auto;

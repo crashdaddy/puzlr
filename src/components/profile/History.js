@@ -3,6 +3,9 @@ import CheatModeOffIcon from '@material-ui/icons/GridOffTwoTone';
 import CheatModeOnIcon from '@material-ui/icons/GridOnTwoTone';
 import { Redirect } from "react-router";
 import Paper from '@material-ui/core/Paper';
+import money from '../img/moneyBag.png';
+import Moves from '@material-ui/icons/OpenWith';
+import TimerIcon from '@material-ui/icons/Timer';
 
 class History extends Component {
     constructor(props) {
@@ -16,7 +19,6 @@ class History extends Component {
       }
 
       componentDidMount = () => {
-          console.log(this.props.user.userId)
           this.getHistory(this.props.user.userId);
       }
 
@@ -36,9 +38,7 @@ class History extends Component {
           .then(response => response.json())
           .then(data => {
             if (data.code == "200") {
-             
-                console.log(data)
-              if (data.history) {
+                if (data.history) {
                 this.setState({
                     userHistory: data.history
                 })
@@ -75,13 +75,15 @@ class History extends Component {
                 {this.state.userHistory.map(game => 
                     <div onClick={()=>this.selectPuzzle(game.puzzleURL)} style={{verticalAlign:'middle',fontSize:'large',fontWeight:'bold',marginTop:'20px'}}>
                         <img className="historyPicSm" src={game.puzzlePic} alt='' />
-                        {game.gameTime} - {game.movesCount} 
+                        {/* <TimerIcon  fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>
+                        {game.gameTime} -  */}
+                        <Moves fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 2px 4px 5px'}} /> {game.movesCount} - 
                         {game.wasCheatModeUsed ?
                         <CheatModeOnIcon  fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>
                         :
                         <CheatModeOffIcon  fontSize="small" color="action" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>    
                         }
-                        - <span style={{color:'green'}}>${game.gameScore}</span> - {game.board}x{game.board} - {new Date(game.savedAt).toLocaleString()}
+                        - <img src={money} style={{margin:'0px 6px 8px 4px',width:'20px',verticalAlign:'middle'}} /><span style={{color:'green'}}>${game.gameScore}</span> - {game.board}x{game.board} - {new Date(game.savedAt).toLocaleString()}
                     </div>
                 )}
                 </div>

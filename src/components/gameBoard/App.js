@@ -30,6 +30,8 @@ class App extends Component {
     this.state = {
       gameOver: false,
       cheatMode: false,
+      wasCheatModeUsed: false,
+      score: 0,
       moves: 0,
       board: [],
       indexBoard: [],
@@ -51,12 +53,12 @@ class App extends Component {
     return result;
    }
 
+   
+
   componentDidMount = () => {
     this.props.sendMessage("You got this!")
     this.fetchImg();
-
    
-    
     if (this.props.player) {
       this.setState({
         boardWidth: this.props.player.boardPref,
@@ -65,7 +67,6 @@ class App extends Component {
     } else  if (this.read_cookie("player")) {
       let player = this.read_cookie("player")
       this.props.addUser(player);
-      console.log("found cookie!", player);
       this.setState({
         boardWidth: player.boardPref,
         boardHeight: player.boardPref
@@ -103,18 +104,17 @@ class App extends Component {
     this.props.sendMessage("Good Job!");
 
     let addToHistoryUrl = "https://puzzlrapi.herokuapp.com/addToHistory";
-
+      console.log("adding to history with score: ", this.state.score)
     let queryParams = {
       "userId": this.props.player.id,
-      "gameScore": 0,
-      "wasCheatModeUsed": this.state.cheatMode,
+      "gameScore": this.state.score,
+      "wasCheatModeUsed": this.state.wasCheatModeUsed,
       "movesCount": this.state.moves,
       "gameTime": "00:00:58",
       "board": this.state.boardWidth,
       "puzzleURL": this.state.puzzleId,
       "puzzlePic": this.state.authorObject.urls.small
     }
-    console.log("QueryParams: ", queryParams);
     fetch(addToHistoryUrl, {
       method: 'post',
       body: JSON.stringify(queryParams),
@@ -356,15 +356,16 @@ class App extends Component {
       moves: moves
     },()=>{
     if (this.winner(this.state.board)) {
-      this.addToHistory();
-      this.checkRecord();
       this.gameOver();
+      this.checkRecord();
     }})
   }
 
   toggleCheat = () => {
+    this.props.sendMessage(`Cheatmode set to ${!this.state.cheatMode}`)
     this.setState({
-      cheatMode: !this.state.cheatMode
+      cheatMode: !this.state.cheatMode,
+      wasCheatModeUsed: true
     }, () => {
       if (this.winner(this.state.board)) {
         this.gameOver();
@@ -373,9 +374,24 @@ class App extends Component {
   }
 
   gameOver = () => {
+
+        // get the scale for the scores
+    // it's dependent on board size
+    let scoreMultiplier = 1;
+    let boardWidth=this.state.boardWidth;
+    if (boardWidth==2) scoreMultiplier=10;
+    if (boardWidth==3) scoreMultiplier=25;
+    if (boardWidth==4||boardWidth==5) scoreMultiplier=100;
+    if (boardWidth==6||boardWidth==7) scoreMultiplier=200;
+    if (boardWidth==8||boardWidth==9) scoreMultiplier=300;
+
+        // calculate the score
+    let gameScore= (boardWidth*scoreMultiplier)-this.state.moves;
+        if (gameScore<0) gameScore=0;
     this.setState({
-      gameOver: true
-    })
+      gameOver: true,
+      score: gameScore
+    }, ()=> this.addToHistory())
   }
 
   changeBoardSize = (newSize) => {
@@ -610,9 +626,9 @@ class App extends Component {
       <div>
         {this.state.authorObject ?
           <div className="App">
-            <LeftPanel createBoard={this.createBoard} boardSize={this.state.boardWidth} currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
+            <LeftPanel createBoard={this.createBoard} boardSize={this.state.boardWidth} currentRecord={this.state.currentRecord} currentRecordHolder={this.state.currentRecordHolder} favorite={this.state.favorite} toggleFavorite={this.toggleFavorite} moves={this.state.moves} cheatMode={this.state.cheatMode} toggleCheat={this.toggleCheat} referenceImage={this.state.authorObject.urls.small} score={this.state.score} gameOver={this.state.gameOver} changeBoardSize={this.changeBoardSize} />
             <div className="gameBoard" style={{ width: `${boardDim}px`, height: `${boardDim}px` }}>
-              <GameBoard rowRight={this.rowRight} rowLeft={this.rowLeft} colUp={this.colUp} colDown={this.colDown} countMove={this.countMove} indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
+              <GameBoard gameOver={this.state.gameOver} rowRight={this.rowRight} rowLeft={this.rowLeft} colUp={this.colUp} colDown={this.colDown} countMove={this.countMove} indexBoard={this.state.indexBoard} board={this.state.board} picSize={this.state.picSize} width={this.state.boardWidth} height={this.state.boardHeight} bgImg={this.state.imgPic} cheatMode={this.state.cheatMode} />
             </div>
             <RightPanel authorObject={this.state.authorObject.user} />
           </div>

@@ -20,19 +20,19 @@ class GameBoard extends Component {
     if (this.state.firstClick) {
       let rowCol = id.split('-');
       if (rowCol[0] < this.state.clickedRow) {
-        this.props.colUp(this.props.board,id)
+        this.props.colUp(this.props.board, id)
         this.props.countMove();
       };
       if (rowCol[0] > this.state.clickedRow) {
-        this.props.colDown(this.props.board,id);
+        this.props.colDown(this.props.board, id);
         this.props.countMove();
       };
       if (rowCol[1] > this.state.clickedCol) {
-        this.props.rowRight(this.props.board,id);
+        this.props.rowRight(this.props.board, id);
         this.props.countMove();
       };
       if (rowCol[1] < this.state.clickedCol) {
-        this.props.rowLeft(this.props.board,id);
+        this.props.rowLeft(this.props.board, id);
         this.props.countMove();
       };
       this.clearAll();
@@ -45,7 +45,7 @@ class GameBoard extends Component {
         clickedCol: rowCol[1]
       })
     }
- 
+
   }
 
   clearAll = () => {
@@ -63,28 +63,30 @@ class GameBoard extends Component {
   }
 
   clearSelected = (clickedTile, id) => {
-    let stateBoard = this.props.board;
+    if (!this.props.gameOver) {
+      let stateBoard = this.props.board;
 
-    stateBoard.forEach(tile => {
-      if (tile.tile === clickedTile) {
-        tile.selected = !tile.selected
-        this.setState({
-          selectedTile: id
-        })
-      } else
-        tile.selected = false;
-    })
-    this.setState({
-      board: stateBoard
-    })
-    this.checkFirstClick(id);
+      stateBoard.forEach(tile => {
+        if (tile.tile === clickedTile) {
+          tile.selected = !tile.selected
+          this.setState({
+            selectedTile: id
+          })
+        } else
+          tile.selected = false;
+      })
+      this.setState({
+        board: stateBoard
+      })
+      this.checkFirstClick(id);
+    }
   }
 
   render() {
 
     return (
       <div>
-        {this.props.board.map((tile, idx) => <Tile className="tile" cheatMode={this.props.cheatMode} id={this.props.indexBoard[idx]} key={idx} tile={tile} bgImg={this.props.bgImg} clearSelected={() => this.clearSelected(tile.tile, this.props.indexBoard[idx])} />)}
+        {this.props.board.map((tile, idx) => <Tile className="tile" gameOver={this.props.gameOver} cheatMode={this.props.cheatMode} id={this.props.indexBoard[idx]} key={idx} tile={tile} bgImg={this.props.bgImg} clearSelected={() => this.clearSelected(tile.tile, this.props.indexBoard[idx])} />)}
       </div>
     )
   }

@@ -40,7 +40,7 @@ class Profile extends Component {
               if (data.data[0]) {
                 this.setState({
                   userId: data.data[0].id,
-                  userScore: data.data[0].score,
+                  userScore: data.data[0].totalScore,
                   userBoardPref: data.data[0].boardpref,
                   userCreated: new Date(data.data[0].createdAt).toLocaleString(),
                   userGamesPlayed: data.data[0].gamesPlayed

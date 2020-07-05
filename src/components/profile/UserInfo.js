@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
+import money from '../img/moneyBag.png';
 
 class UserInfo extends Component {
 
@@ -9,11 +10,15 @@ class UserInfo extends Component {
                  <img className="profilePicLarge" alt='' src={`https://robohash.org/${this.props.user.profileName}.png`} />
          
                  <h1>{this.props.user.profileName}</h1> 
-                 <div>   
+                 {this.props.user.userScore ?
+                 <div>                
                  <span>Joined: {this.props.user.userCreated.toLocaleString()}</span><br/>
                 <span>Puzls unpuzld: {this.props.user.userGamesPlayed}</span><br/>
-                <span>Score: <span style={{color:'green'}}>${this.props.user.userScore}</span></span>
+                <span><img src={money} style={{width:'30px',verticalAlign:'middle'}} /> <span style={{color:'green',verticalAlign:'middle'}}>${this.props.user.userScore.toLocaleString()}</span></span>
                 </div>
+                :
+                "You sure you've got the right name?"
+                 }
                 </Paper>
         )
     }
