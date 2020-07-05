@@ -46,7 +46,7 @@ class UserInfo extends Component {
                  <h1>{this.props.user.profileName}</h1> 
                  {this.props.user.userScore ?
                  <div>
-                {this.props.player.userName === this.props.user.profileName ? 
+                {this.props.player && this.props.player.userName === this.props.user.profileName ? 
                  <span>Set Board Preference <BoardPref boardSize={this.props.user.userBoardPref} updateUser = {this.updateUser} /><br/></span>             
                  :
                  ''

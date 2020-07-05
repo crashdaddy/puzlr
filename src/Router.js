@@ -17,7 +17,7 @@ const Router = () => {
             <Route path="/puzzle/:id?" render={(props) => <App {...props}  key={Date.now()} />}/>
             <Route path="/login" component={Login}/>
             <Route path="/faves" component={Favorites}/>
-            <Route path="/profile/:user" component={Profile} />
+                <Route path="/profile/:user" render={(props) => <Profile {...props} key={Date.now()} />} />
             <Route path="/help" component={LandingPage} />
         </Switch>
     )
