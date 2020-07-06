@@ -119,7 +119,7 @@ class Login extends Component {
         {this.props.player ?
           <div style={{ textAlign: 'center' }}>
             <div style={{ textAlign: 'center', fontSize: 'xx-large', marginBottom: '20px' }}>Welcome back, {this.props.player.userName}<br />
-            You've already solved {this.props.player.gamesPlayed} puzzles. Let's do one more!<br />
+            You've already unpuzld {this.props.player.gamesPlayed} puzls. Let's do one more!<br />
             </div>
             <Link to={`/profile/${this.props.player.userName}`} ><Avatar name={this.props.player.userName} size={200} /></Link>
           </div>
