@@ -13,6 +13,7 @@ class Profile extends Component {
           userGamesPlayed: 0,
           userScore: 0,
           userBoardPref: 4,
+          userRecordsWon: 0,
           userCreated: null
         };
       }
@@ -55,12 +56,14 @@ class Profile extends Component {
           .then(data => {
             if (data.code == "200") {
               if (data.data[0]) {
+                console.log(data.data)
                 this.setState({
                   userId: data.data[0].id,
                   userScore: data.data[0].totalScore,
                   userBoardPref: data.data[0].boardPref,
                   userCreated: new Date(data.data[0].createdAt).toLocaleString(),
-                  userGamesPlayed: data.data[0].gamesPlayed
+                  userGamesPlayed: data.data[0].gamesPlayed,
+                  userRecordsWon: data.data[0].recordsWon
                 })
               }
             } else {
