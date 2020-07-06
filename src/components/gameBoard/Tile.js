@@ -10,7 +10,7 @@ class Tile extends Component {
     let borderStyle = '1px solid black';
     if(this.props.cheatMode && this.props.tile.shouldBe!==this.props.tile.pos) { borderStyle = '1px solid red' }
     if (this.props.tile.selected) { borderStyle = '1px solid white' }
-    if (this.props.gameOver) {borderStyle = '1px solid lightgreen'}
+    if (this.props.gameOver) {borderStyle = '1px solid black'}
     let tileStyle = {
       height: `${this.props.tile.size}px`, 
       width: `${this.props.tile.size}px`, 
