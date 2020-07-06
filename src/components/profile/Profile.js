@@ -26,6 +26,12 @@ class Profile extends Component {
         return result;
       }
 
+      bake_cookie(name, value) {
+        var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
+        document.cookie = cookie;
+        console.log("set cookie!", cookie)
+      }
+
       componentDidMount = () => {
         let player={};
         if (this.read_cookie("player")) {
@@ -84,12 +90,17 @@ class Profile extends Component {
         })
       }
 
+      logOut = () => {
+        this.props.logOff();
+        this.bake_cookie("player", null);
+      }
+
     render(){
         return(
             <div>
               {this.state.userCreated ? 
               <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row',justifyContent:'center'}}>
-              <UserInfo changeView={this.changeView} addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
+              <UserInfo logOff={()=>this.props.logOff()} changeView={this.changeView} addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
               {this.state.showHistory ? 
               <History clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />
               :

@@ -4,6 +4,7 @@ import money from '../img/moneyBag.png';
 import BoardPref from './BoardPref';
 import WonStar from '@material-ui/icons/StarBorderTwoTone';
 import StarIcon from '@material-ui/icons/Star';
+import LogOff from '@material-ui/icons/MeetingRoom';
 
 class UserInfo extends Component {
 
@@ -45,7 +46,13 @@ class UserInfo extends Component {
       <Paper className="profileInfo" elevation={3} >
         <img className="profilePicLarge" alt='' src={`https://robohash.org/${this.props.user.profileName}.png`} />
 
-        <h1>{this.props.user.profileName}</h1>
+        <div style={{fontSize:'32px',fontWeight:'bold',color:'blue'}}>{this.props.user.profileName}
+        {this.props.player && this.props.player.userName === this.props.user.profileName ?
+        <LogOff style={{fontSize:'32px','color': '#ff0000',verticalAlign:'middle',marginLeft:'4px'}} onClick={this.props.logOff}/>
+        :
+        ''
+        }
+        </div>
         {this.props.user.userScore ?
           <div>
             {this.props.player && this.props.player.userName === this.props.user.profileName ?

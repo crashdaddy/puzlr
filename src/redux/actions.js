@@ -5,6 +5,13 @@ export const addUser = (newUser) => {
     };
   };
 
+  export const logOff = () => {
+    return {
+      type: "LOGOFF",
+      value: null
+    }
+  }
+
 export const addPuzzle = (newPuzzle) => {
     return {
         type: "ADD_PUZZLE",

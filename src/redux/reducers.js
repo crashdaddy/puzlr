@@ -4,6 +4,8 @@ const player = (state = null,action) => {
     switch(action.type) {
         case 'ADD_USER':
             return action.value;
+        case 'LOGOFF':
+            return null
         default:
             return state;
     }
