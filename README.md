@@ -23,9 +23,9 @@ TODO (short term):
  - [x] move API keys to backend
  - [x] add a user profile page
    - [ ] favorites
-   - [ ] records
+   - [x] records
    - [x] history
-   - [ ] ~~if the person looking at the profile page is the user, then also display options for customizing their avatar~~
+   - [x] ~~if the person looking at the profile page is the user, then also display options for customizing their avatar~~
 - [ ] ~~allow customization of avatar~~
    - [ ] ~~switch between [Robohash](https://robohash.org/) sets~~
 

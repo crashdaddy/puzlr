@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import UserInfo from './UserInfo';
 import History from './History';
+import Records from './Records';
 
 
 class Profile extends Component {
@@ -14,7 +15,8 @@ class Profile extends Component {
           userScore: 0,
           userBoardPref: 4,
           userRecordsWon: 0,
-          userCreated: null
+          userCreated: null,
+          showHistory: true
         };
       }
 
@@ -68,6 +70,7 @@ class Profile extends Component {
               }
             } else {
               this.props.sendMessage(`We've encountered a problem: ${data.code}  getting the profile.`);
+              console.log("error data ", data)
             }
           })
           .catch((error) => {
@@ -75,13 +78,23 @@ class Profile extends Component {
           })
       }
 
+      changeView = () => {
+        this.setState({
+          showHistory: !this.state.showHistory
+        })
+      }
+
     render(){
         return(
             <div>
               {this.state.userCreated ? 
               <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row',justifyContent:'center'}}>
-              <UserInfo addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
+              <UserInfo changeView={this.changeView} addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
+              {this.state.showHistory ? 
               <History clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />
+              :
+              <Records clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />
+              }
               </div>
                  :
                  'not found'

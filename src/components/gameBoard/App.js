@@ -220,7 +220,11 @@ class App extends Component {
       "puzzleID": this.state.puzzleId,
       "boardSize": this.state.boardWidth,
       "playerName": this.props.player.userName,
-      "moves": this.state.moves
+      "moves": this.state.moves,
+      "gameTime": this.state.gameTime,
+      "wasCheatModeUsed": this.state.wasCheatModeUsed,
+      "score": this.state.score,
+      "imgPic": this.state.authorObject.urls.small
     }
     fetch(setRecordUrl, {
       method: 'post',
@@ -252,7 +256,11 @@ class App extends Component {
       "puzzleID": this.state.puzzleId,
       "boardSize": this.state.boardWidth,
       "playerName": this.props.player.userName,
-      "moves": this.state.moves
+      "moves": this.state.moves,
+      "gameTime": this.state.gameTime,
+      "wasCheatModeUsed": this.state.wasCheatModeUsed,
+      "score": this.state.gameScore,
+      "imgPic": this.state.authorObject.urls.small
     }
     fetch(setRecordUrl, {
       method: 'post',

@@ -55,8 +55,8 @@ class UserInfo extends Component {
             }
             <span>Joined: {this.props.user.userCreated.toLocaleString()}</span><br />
             <span><img src={money} style={{ width: '30px', verticalAlign: 'middle' }} /> <span style={{ color: 'green', verticalAlign: 'middle' }}>${this.props.user.userScore.toLocaleString()}</span></span><br />
-            <span><WonStar fontSize="small" style={{ color: "#D4AF37" }} />Puzls unpuzld: {this.props.user.userGamesPlayed}</span><br />
-            <span><StarIcon style={{ color: "#D4AF37" }} /> Records Won: {this.props.user.userRecordsWon}</span>
+            <span onClick={()=>this.props.changeView()} ><WonStar fontSize="small" style={{ color: "#D4AF37" }} />Puzls unpuzld: {this.props.user.userGamesPlayed}</span><br />
+            <span onClick={()=>this.props.changeView()}><StarIcon style={{ color: "#D4AF37" }} /> Records Won: {this.props.user.userRecordsWon}</span>
           </div>
           :
           "You sure you've got the right name?"
