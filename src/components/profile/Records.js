@@ -75,7 +75,7 @@ class Records extends Component {
                 this.state.userHistory.length>0 ?
                 <div>
                 {this.state.userHistory.map(game => 
-                    <div onClick={()=>this.selectPuzzle(game.puzzleURL)} style={{verticalAlign:'middle',fontSize:'large',fontWeight:'bold',marginTop:'20px'}}>
+                    <div onClick={()=>this.selectPuzzle(game.puzzleID)} style={{verticalAlign:'middle',fontSize:'large',fontWeight:'bold',marginTop:'20px'}}>
                         <img className="historyPicSm" src={`${game.imgpic}`} alt='' />
                         <TimerIcon  fontSize="small" color="primary" style={{verticalAlign:'middle',margin:'0 5px 4px 5px'}}/>
                         {game.gameTime} - 
