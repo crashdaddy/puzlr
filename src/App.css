@@ -217,3 +217,22 @@ transform: translateX(-50%);
   width: 140px;
   margin: 0px auto;
 }
+
+.profileSearchResults {
+  width:100%;
+  font-size: 48px;
+  /* border: 1px solid black;
+  border-radius: 5px; */
+  margin:10px;
+  padding:10px;
+  display:flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+  /* background: rgb(77,182,217);
+  background: linear-gradient(176deg,s rgba(77,182,217,1) 0%, rgba(28,127,161,1) 49%, rgba(37,104,126,1) 100%);   */
+}
+
+.profileSearchResults a {
+  text-decoration: none !important;
+}
