@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchForm from './SearchForm';
 import PopularSearches from './PopularSearches';
+import UserProfile from './UserProfile'
 import Paper from '@material-ui/core/Paper';
 import NoData from '../NoData/NoData';
 
@@ -8,6 +9,8 @@ class PuzzlePicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      profileQuery: false,
+      userProfile: [],
       puzzlePix: [],
       query: '',
       pageNumber: 1,
@@ -39,7 +42,8 @@ class PuzzlePicker extends Component {
   // when they click the "popular searches" chips
   filterSearch = (searchTerm) => {
     this.setState({
-      query: ''
+      query: '',
+      profileQuery: false
     })
     this.querySearch(searchTerm);
   }
@@ -60,13 +64,22 @@ class PuzzlePicker extends Component {
   }
 
   querySearch = (query) => {
+    let userquery = ''
+    let searchType="images";
     let APIendpoint = `https://puzzlrapi.herokuapp.com/getQueryPix?query=${query}`;
 
     if (query.includes('user:')) {
-      let userquery = query.substr(5).trim();
+      userquery = query.substr(5).trim();
       APIendpoint =  `https://puzzlrapi.herokuapp.com/getPixByUser?user=${userquery}`;   
     } else if (query === '') {
       APIendpoint =  `https://puzzlrapi.herokuapp.com/getRandomPix?query=`;  
+    } else if (query.includes('player:')){
+      searchType="player";
+      this.setState({
+        profileQuery: true
+      })
+      userquery = query.substr(7).trim();
+      APIendpoint =  `https://puzzlrapi.herokuapp.com/getUsersLike?user=${userquery}`;  
     }
     // clear out existing articles
     this.setState({
@@ -76,7 +89,37 @@ class PuzzlePicker extends Component {
       pageNumber: 1
     });
     // load new articles
-    this.fetchImg(APIendpoint, 1);
+    if (searchType==="player") {
+      this.searchUserProfiles(userquery);
+    }else{ this.fetchImg(APIendpoint, 1);}
+  }
+
+  searchUserProfiles = (lookingFor) => {
+    let delFaveURL = "https://puzzlrapi.herokuapp.com/getUsersLike";
+      
+    let delBody = {
+      "userName": lookingFor      
+    }
+
+    fetch(delFaveURL, {
+      method: 'post',
+      body: JSON.stringify(delBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code == "200") {
+          console.log(data)
+          this.setState({
+            userProfile: data.data
+          })
+        } else this.props.sendMessage("something went wrong: ", data.code);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      })
   }
 
   componentDidMount = () => {
@@ -130,6 +173,9 @@ class PuzzlePicker extends Component {
               <SearchForm handleSubmit={this.handleSearch} handleChange={this.handleChange} query={this.state.query} />
               <PopularSearches filterSearch={this.filterSearch} />
             </div>
+            {this.state.profileQuery ?     
+            <UserProfile user={this.state.userProfile} />
+            :
             <div className="puzzlePickerResultsLayout">
               {puzzleList.map((puzzle, idx) => <Paper key={idx} className="puzzlePickerDiv" elevation={3} >
                 <img src={`${puzzle.urls.small}&w=150`} id={puzzle.id} className="searchResultsImg" alt="" onClick={this.puzzlePick} />
@@ -138,6 +184,8 @@ class PuzzlePicker extends Component {
                 {/* <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p> */}
               </Paper>)}
             </div>
+                 
+            }
           </div>
           :
           <NoData />
