@@ -23,10 +23,10 @@ class UserProfile extends Component {
                                     <img src={money} style={{verticalAlign:'middle',width:'32px',marginBottom:'10px'}} /><span style={{fontWeight:'bold',color:'green'}}> ${userprofile.totalScore ? userprofile.totalScore.toLocaleString() : 0} </span>
                                 </div>
                                 <div>
-                                   Puzls Unpuzld: <span style={{color:'blue',fontWeight:'bold'}}>{userprofile.gamesPlayed.toLocaleString()}</span> 
+                                   Puzls Unpuzld: <span style={{color:'#3f51b5',fontWeight:'bold'}}>{userprofile.gamesPlayed.toLocaleString()}</span> 
                                 </div>
                                 <div>
-                                   Records Won! <span style={{color:'blue',fontWeight:'bold'}}>{userprofile.recordsWon.toLocaleString()}</span> 
+                                   Records Held: <span style={{color:'#3f51b5',fontWeight:'bold'}}>{userprofile.recordsWon.toLocaleString()}</span> 
                                 </div>
                             </Paper>
                             </Link>
