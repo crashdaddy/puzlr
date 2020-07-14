@@ -20,13 +20,13 @@ class UserProfile extends Component {
                                 <div style={{ width: '90%', fontSize: 'small', fontWeight: 'bold', margin: '2px auto', padding: '5px' }}>{userprofile.user_name}</div>
                                 </div>
                                 <div>
-                                    <img src={money} style={{verticalAlign:'middle',width:'32px',marginBottom:'10px'}} /><span style={{fontWeight:'bold',color:'green'}}> ${userprofile.totalScore ? userprofile.totalScore : 0} </span>
+                                    <img src={money} style={{verticalAlign:'middle',width:'32px',marginBottom:'10px'}} /><span style={{fontWeight:'bold',color:'green'}}> ${userprofile.totalScore ? userprofile.totalScore.toLocaleString() : 0} </span>
                                 </div>
                                 <div>
-                                   Puzls Unpuzld: <span style={{color:'blue',fontWeight:'bold'}}>{userprofile.gamesPlayed}</span> 
+                                   Puzls Unpuzld: <span style={{color:'blue',fontWeight:'bold'}}>{userprofile.gamesPlayed.toLocaleString()}</span> 
                                 </div>
                                 <div>
-                                   Records Won! <span style={{color:'blue',fontWeight:'bold'}}>{userprofile.recordsWon}</span> 
+                                   Records Won! <span style={{color:'blue',fontWeight:'bold'}}>{userprofile.recordsWon.toLocaleString()}</span> 
                                 </div>
                             </Paper>
                             </Link>
