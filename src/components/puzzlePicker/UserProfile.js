@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import Paper from '@material-ui/core/Paper';
 import money from '../img/moneyBag.png';
+import WonStar from '@material-ui/icons/StarBorderTwoTone';
+import StarIcon from '@material-ui/icons/Star';
 
 class UserProfile extends Component {
 
@@ -23,10 +25,10 @@ class UserProfile extends Component {
                                     <img src={money} style={{verticalAlign:'middle',width:'32px',marginBottom:'10px'}} /><span style={{fontWeight:'bold',color:'green'}}> ${userprofile.totalScore ? userprofile.totalScore.toLocaleString() : 0} </span>
                                 </div>
                                 <div>
-                                   Puzls Unpuzld: <span style={{color:'#3f51b5',fontWeight:'bold'}}>{userprofile.gamesPlayed.toLocaleString()}</span> 
+                                <WonStar  style={{fontSize:"32px" ,color: "#D4AF37" }} /> <span style={{color:'#3f51b5',fontWeight:'bold'}}>{userprofile.gamesPlayed.toLocaleString()}</span> 
                                 </div>
                                 <div>
-                                   Records Held: <span style={{color:'#3f51b5',fontWeight:'bold'}}>{userprofile.recordsWon.toLocaleString()}</span> 
+                                <StarIcon style={{fontSize:"32px", color: "#D4AF37" }} /> <span style={{color:'#3f51b5',fontWeight:'bold'}}>{userprofile.recordsWon.toLocaleString()}</span> 
                                 </div>
                             </Paper>
                             </Link>
