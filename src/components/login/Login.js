@@ -49,11 +49,15 @@ class Login extends Component {
             loggingIn: false,
             registering: false
           })
-        } else console.log("error code", data.code);
-
+        }        
+          else {
+            this.props.sendMessage("I'm not finding it")
+            console.log("error code", data.code);
+          }
       })
       .catch((error) => {
         console.log('Error: ', error);
+        this.props.sendMessage("Yikes. Check the logs.");
       })
   }
 
@@ -85,6 +89,7 @@ class Login extends Component {
       })
       .catch((error) => {
         console.log('Error: ', error);
+ 
       })
   }
 
