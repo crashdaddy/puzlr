@@ -9,6 +9,7 @@ class PuzzlePicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      stateMessage: 'Loading',
       profileQuery: false,
       userProfile: [],
       puzzlePix: [],
@@ -64,6 +65,7 @@ class PuzzlePicker extends Component {
   }
 
   querySearch = (query) => {
+    
     let userquery = ''
     let searchType="images";
     let APIendpoint = `https://puzzlrapi.herokuapp.com/getQueryPix?query=${query}`;
@@ -139,6 +141,10 @@ class PuzzlePicker extends Component {
 
 
   fetchImg = (searchURL, page) => {
+    // this.setState({
+    //   stateMessage: 'Loading...'
+    // })
+    this.props.sendMessage("looking for it")
     let imgUrl = searchURL + `&page=${page}`;
     fetch(imgUrl)
       .then(function (response) {
@@ -150,7 +156,13 @@ class PuzzlePicker extends Component {
       .then(data => {
         let newData = data;
 
-        if (data.results) { newData = data.results }
+        if (data.results) { newData = data.results } else {
+          this.props.sendMessage("Can't find it")
+          this.setState({
+            stateMessage: "That search brought no results"
+          })
+        }
+        this.props.sendMessage("let's find a good one");
         this.setState({
           puzzlePix: [...this.state.puzzlePix, ...newData]
         })
@@ -158,6 +170,9 @@ class PuzzlePicker extends Component {
       .catch(error => {
         this.setState({
           puzzlePix: null
+        })
+        this.setState({
+          stateMessage: "some kind of funny business going on"
         })
       })
   }
@@ -174,7 +189,7 @@ class PuzzlePicker extends Component {
               <PopularSearches filterSearch={this.filterSearch} />
             </div>
             {this.state.profileQuery ?     
-            <UserProfile user={this.state.userProfile} />
+            <UserProfile message={this.state.stateMessage} user={this.state.userProfile} />
             :
             <div className="puzzlePickerResultsLayout">
               {puzzleList.map((puzzle, idx) => <Paper key={idx} className="puzzlePickerDiv" elevation={3} >

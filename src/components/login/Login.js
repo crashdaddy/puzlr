@@ -57,7 +57,7 @@ class Login extends Component {
       })
       .catch((error) => {
         console.log('Error: ', error);
-        this.props.sendMessage("Yikes. Check the logs.");
+        this.props.sendMessage("Yikes. Check the logs");
       })
   }
 

@@ -36,7 +36,7 @@ class UserProfile extends Component {
                         }
                     </div>
                     :
-                    <div style={{ fontSize: '80px' }}>Loading...</div>
+                    <div style={{ fontSize: '80px' }}>{this.props.message}</div>
                 }
             </div>
         )
