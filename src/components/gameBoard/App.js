@@ -146,7 +146,6 @@ class App extends Component {
       this.props.sendMessage("Good Job!");
 
       let addToHistoryUrl = "https://puzzlrapi.herokuapp.com/addToHistory";
-      console.log("adding to history with score: ", this.state.score)
       let queryParams = {
         "userId": this.props.player.id,
         "gameScore": this.state.score,

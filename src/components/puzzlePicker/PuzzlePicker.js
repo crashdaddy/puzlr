@@ -113,7 +113,6 @@ class PuzzlePicker extends Component {
       .then(response => response.json())
       .then(data => {
         if (data.code == "200") {
-          console.log(data)
           this.setState({
             userProfile: data.data
           })
@@ -157,9 +156,9 @@ class PuzzlePicker extends Component {
         let newData = data;
 
         if (data.results) { newData = data.results } else {
-          this.props.sendMessage("Can't find it")
+          this.props.sendMessage("Still looking...")
           this.setState({
-            stateMessage: "That search brought no results"
+            stateMessage: `Sometimes it takes a while`
           })
         }
         this.props.sendMessage("let's find a good one");

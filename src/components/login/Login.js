@@ -65,7 +65,6 @@ class Login extends Component {
 
     const postData = { userName: this.state.userName, email: this.state.regemail, password: this.state.regpassword };
     const registerUrl = "https://puzzlrapi.herokuapp.com/register";
-    console.log(postData);
     fetch(registerUrl, {
       method: 'post',
       body: JSON.stringify(postData),
@@ -96,7 +95,6 @@ class Login extends Component {
   bake_cookie(name, value) {
     var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
     document.cookie = cookie;
-    console.log("set cookie!", cookie)
   }
 
   login = (e) => {

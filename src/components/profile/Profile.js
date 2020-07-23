@@ -29,7 +29,6 @@ class Profile extends Component {
       bake_cookie(name, value) {
         var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
         document.cookie = cookie;
-        console.log("set cookie!", cookie)
       }
 
       componentDidMount = () => {
@@ -37,7 +36,6 @@ class Profile extends Component {
         if (this.read_cookie("player")) {
         player = this.read_cookie("player");
         this.props.addUser(player);
-        console.log("player ",player)
         }
 
         if (player.userName) {
@@ -64,7 +62,6 @@ class Profile extends Component {
           .then(data => {
             if (data.code == "200") {
               if (data.data[0]) {
-                console.log(data.data)
                 this.setState({
                   userId: data.data[0].id,
                   userScore: data.data[0].totalScore,

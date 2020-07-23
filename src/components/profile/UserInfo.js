@@ -41,7 +41,6 @@ class UserInfo extends Component {
   }
 
   render() {
-    console.log("board pref: ", this.props.user.userBoardPref)
     return (
       <Paper className="profileInfo" elevation={3} >
         <img className="profilePicLarge" alt='' src={`https://robohash.org/${this.props.user.profileName}.png`} />

@@ -20,7 +20,6 @@ class Records extends Component {
 
       componentDidMount = () => {
           this.getHistory(this.props.user.profileName);
-          console.log("userName ",this.props.user.profileName)
       }
 
       getHistory = (userName) => {
@@ -39,7 +38,6 @@ class Records extends Component {
           .then(response => response.json())
           .then(data => {
             if (data.code == "200") {
-              console.log(data)
                 if (data.record) {
                 this.setState({
                     userHistory: data.record
