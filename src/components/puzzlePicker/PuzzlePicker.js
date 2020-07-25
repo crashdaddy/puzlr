@@ -4,6 +4,7 @@ import PopularSearches from './PopularSearches';
 import UserProfile from './UserProfile'
 import Paper from '@material-ui/core/Paper';
 import NoData from '../NoData/NoData';
+import SocialLinks from '../SocialLinks';
 
 class PuzzlePicker extends Component {
   constructor(props) {
@@ -194,8 +195,9 @@ class PuzzlePicker extends Component {
               {puzzleList.map((puzzle, idx) => <Paper key={idx} className="puzzlePickerDiv" elevation={3} >
                 <img src={`${puzzle.urls.small}&w=150`} id={puzzle.id} className="searchResultsImg" alt="" onClick={this.puzzlePick} />
                 <div style={{ width: '90%', fontSize: 'small', fontWeight: 'bold', margin: '2px auto',padding:'5px' }}>{puzzle.alt_description}</div>
-                <div style={{padding:'5px'}}><i>Photo by: <a href={`${puzzle.user.links.html}?utm_source=puzzlr&utm_medium=referral`} target="blank"><strong>{puzzle.user.username}</strong></a> on <a href="https://unsplash.com/?utm_source=puzzlr&utm_medium=referral">Unsplash</a></i></div>
+                <div style={{padding:'5px'}}><i>Photo by: <a href={`/search/user:${puzzle.user.username}`}><strong>{puzzle.user.username}</strong></a> on <a href="https://unsplash.com/?utm_source=puzzlr&utm_medium=referral">Unsplash</a></i></div>
                 {/* <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p> */}
+                <SocialLinks author={puzzle.user.username} twitter={puzzle.user.twitter_username} instagram={puzzle.user.instagram_username} />
               </Paper>)}
             </div>
                  

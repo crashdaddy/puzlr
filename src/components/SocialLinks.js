@@ -7,7 +7,7 @@ export default function SocialLinks(props) {
 
     return(
         <div className="contactIcons">
-        <a href={`${props.author}`} target="blank" >
+        <a href={`https://unsplash.com/@${props.author}`} target="blank" >
             <svg viewBox="0 0 32 32" style={{ margin: "5px" }} width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z" fill="#3f51b5" fillRule="nonzero" />
             </svg>
