@@ -1,15 +1,15 @@
 ## This is a working model of my Puzlr App.
 
-**Puzlr connects to the Unsplash API and turns every one of their photos into an NxN Grid Puzzle where N can be anything from 2 to 9.** 
+**Puzlr connects to the Unsplash API and turns every one of their photos into an NxN Grid puzl where N can be anything from 2 to 9.** 
 
 Current features:
   - tracks favorites
   - search feature for types of photos
   - search by user => user:username
-    - or click on their name on the puzzle page
-  - high score tracking on the puzzle
-  - random puzzle
-  - copy puzzleID to clipboard
+    - or click on their name on the puzl page
+  - high score tracking on the puzl
+  - random puzl
+  - copy puzlID to clipboard
   - cheat mode
   - user profiles (have to be logged in to see)
   - timer and time tracking
@@ -36,12 +36,12 @@ TODO (short term):
 
 - [x] Add scoring system. It already tracks number of moves, but now it'll award a $score based on number of moves and grid size
     
-- [x] add search by puzzle ID (added copyPuzzleIDToClipboard so you can paste into url)
+- [x] add search by puzl ID (added copypuzlIDToClipboard so you can paste into url)
 
 TODO (long term):
 
- - allow user to return to same puzzle after logging in
+ - allow user to return to same puzl after logging in
  - allow user to login after a win and still save the win
- - [x] allow following a link to a specific puzzle from an external source to maintain your logged-in state
+ - [x] allow following a link to a specific puzl from an external source to maintain your logged-in state
 
 Sheesh...that's great, but what're we gonna do _after_ lunch?
