@@ -40,7 +40,7 @@ class FavoritesCard extends Component {
             <div style={{padding:'5px'}}><i>Photo by: </i><br/>
             <img src={`${this.props.fave.smallPic}`} style={{width:'100px',height:'100px'}} alt='' /><br/>
             <strong>{this.props.fave.author}</strong></div>
-            <SocialLinks twitter={this.props.fave.authorTwitter} instagram={this.props.fave.authorInsta} author={this.props.fave.authorUnsplash} style={{display:'inline'}} />
+            <SocialLinks twitter={this.props.fave.authorTwitter} instagram={this.props.fave.authorInsta} author={this.props.fave.author} style={{display:'inline'}} />
             {/* <p style={{ fontSize: 'x-small' }}>{puzzle.user.bio}</p> */}
           </Paper>
           <DeleteIcon style={{position:'absolute',bottom:'5px',right:'5px',color: red[500]}} onClick={()=>this.delFave(this.props.fave.puzzleID)} />
