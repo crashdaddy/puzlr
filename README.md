@@ -9,10 +9,11 @@ Current features:
     - or click on their name on the puzzle page
   - high score tracking on the puzzle
   - random puzzle
+  - copy puzzleID to clipboard
   - cheat mode
-  -- user profiles (have to be logged in to see)
-  -- timer and time tracking
-  -- refresh same puzle
+  - user profiles (have to be logged in to see)
+  - timer and time tracking
+  - refresh same puzle
   
 TODO (short term): 
 
@@ -22,7 +23,7 @@ TODO (short term):
  - [x] rebuild game engine to track moves in an in-memory array instead of the current method which just keeps track of the portion of the background image showing in each tile (this will also fix that first problem)
  - [x] move API keys to backend
  - [x] add a user profile page
-   - [ ] favorites
+   - [x] favorites
    - [x] records
    - [x] history
    - [x] ~~if the person looking at the profile page is the user, then also display options for customizing their avatar~~
@@ -35,7 +36,7 @@ TODO (short term):
 
 - [x] Add scoring system. It already tracks number of moves, but now it'll award a $score based on number of moves and grid size
     
-- [ ] add search by puzzle ID
+- [x] add search by puzzle ID (added copyPuzzleIDToClipboard so you can paste into url)
 
 TODO (long term):
 
