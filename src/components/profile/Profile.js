@@ -38,10 +38,6 @@ class Profile extends Component {
         this.props.addUser(player);
         }
 
-        if (player.userName) {
-          this.props.sendMessage(`Logged in as ${player.userName}`) 
-        } else this.props.sendMessage(" ")
-
           this.getUser();
       }
 
@@ -89,7 +85,13 @@ class Profile extends Component {
 
       logOut = () => {
         this.props.logOff();
-        this.bake_cookie("player", null);
+        // this.bake_cookie("player", null);
+        document.cookie.split(";").forEach((c) => {
+          document.cookie = c
+            .replace(/^ +/, "")
+            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+        this.props.sendMessage("You're logged off. Come back soon!");
       }
 
     render(){
