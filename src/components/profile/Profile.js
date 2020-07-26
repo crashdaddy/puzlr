@@ -86,14 +86,15 @@ class Profile extends Component {
       logOut = () => {
         document.cookie = "player= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
         this.props.sendMessage("You're logged off. Come back soon!");
+        console.log(this.read_cookie("player"))
         this.props.logOff();
         
-        // this.bake_cookie("player", null);
-        // document.cookie.split(";").forEach((c) => {
-        //   document.cookie = c
-        //     .replace(/^ +/, "")
-        //     .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-        // });
+        this.bake_cookie("player", null);
+        document.cookie.split(";").forEach((c) => {
+          document.cookie = c
+            .replace(/^ +/, "")
+            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
         
       }
 
