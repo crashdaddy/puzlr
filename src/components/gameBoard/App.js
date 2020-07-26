@@ -61,7 +61,7 @@ class App extends Component {
     this.clearTimer();
     this.props.sendMessage("You got this!")
     this.fetchImg();
-console.log("props.player",this.props.player)
+console.log("cookie.player",this.read_cookie("player"));
     if (this.props.player) {
       this.setState({
         boardWidth: this.props.player.boardPref,
