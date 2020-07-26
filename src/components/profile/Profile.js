@@ -33,12 +33,15 @@ class Profile extends Component {
 
       componentDidMount = () => {
         let player={};
+        let legit = false;
         if (this.read_cookie("player")) {
         player = this.read_cookie("player");
+        console.log("player",player)
+        legit=true
         this.props.addUser(player);
         }
-
-          this.getUser();
+        
+          if(this.props.player) {this.getUser();} else this.props.sendMessage("you needa login to see profiles")
       }
 
       getUser = () => {
