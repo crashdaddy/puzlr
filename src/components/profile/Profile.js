@@ -86,7 +86,7 @@ class Profile extends Component {
       logOut = () => {
         this.props.sendMessage("You're logged off. Come back soon!");
         this.props.logOff();
-        // this.bake_cookie("player", null);
+        this.bake_cookie("player", null);
         document.cookie.split(";").forEach((c) => {
           document.cookie = c
             .replace(/^ +/, "")
