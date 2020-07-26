@@ -102,7 +102,7 @@ class Profile extends Component {
             <div>
               {this.state.userCreated ? 
               <div  style={{width:'100%',marginTop:'60px',display:'flex',flexDirection:'row',justifyContent:'center'}}>
-              <UserInfo logOff={()=>this.props.logOff()} changeView={this.changeView} addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
+              <UserInfo logOff={this.logOut} changeView={this.changeView} addUser={this.props.addUser} sendMessage={this.props.sendMessage} user={this.state} player={this.props.player} />
               {this.state.showHistory ? 
               <History clearPuzzle={()=>this.props.clearPuzzle()} userName={this.state.profileName} user={this.state} />
               :
