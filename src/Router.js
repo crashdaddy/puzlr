@@ -5,13 +5,13 @@ import Login from './containers/Login'
 import PuzzlePicker from './containers/PuzzlePicker';
 import Favorites from './containers/Favorites';
 import Profile from './containers/Profile';
-import LandingPage from './components/LandingPage/LandingPage';
+import LandingPage from './containers/LandingPage';
 
 
 const Router = () => {
     return (
         <Switch>
-            <Route exact path ="/" component={LandingPage} />
+            <Route exact path ="/"  render={(props) => <LandingPage {...props}  key={Date.now()} />}/>
             <Route path="/search/:query?" render={(props)=> <PuzzlePicker {...props} key={Date.now()} />}/>
             {/* <Route path="/about" component={About} /> */}
             <Route path="/puzzle/:id?" render={(props) => <App {...props}  key={Date.now()} />}/>
@@ -19,7 +19,7 @@ const Router = () => {
             <Route path="/faves" component={Favorites}/>
                 {/* <ProtectedRoute path="/profile/:user" render={(props) => <Profile {...props} key={Date.now()} />} /> */}
             <Route path="/profile/:user" render={(props)=> <Profile {...props}/>} />
-            <Route path="/help" component={LandingPage} />
+            <Route path="/help"  render={(props) => <LandingPage {...props}  key={Date.now()} />}/>
         </Switch>
     )
 }

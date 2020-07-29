@@ -9,9 +9,12 @@ import pic5 from './img/pic5Grid.png';
 import pic6 from './img/pic6Grid.png';
 import './landingCSS.css';
 import Paper from '@material-ui/core/Paper';
+import { Component } from 'react';
 
-export default function LandingPage() {
+class LandingPage extends Component {
 
+    render() {
+        this.props.sendMessage("Let's have some fun");
     return(
         <div className="landingPageDiv">
             <div className="logoBanner"><img src={logoPic} style={{maxWidth:'30%'}} alt='' /></div>
@@ -59,5 +62,7 @@ export default function LandingPage() {
                 Happy Puzlng!
             </div>
         </div>
-    )
+    )}
 }
+
+export default LandingPage
