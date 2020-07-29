@@ -13,6 +13,8 @@ import { useHistory } from "react-router";
 import Talker from './Talker'
 import FavoriteIcon from '@material-ui/icons/FavoriteTwoTone';
 import Avatar from "./avatar/Avatar";
+import logo from "./img/gridIcon.png";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,7 +52,7 @@ export default function NavBar(props) {
       <AppBar position="static">
         <Toolbar variant="dense">
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
+            <img src={logo} style={{width:'30px'}} />
           </IconButton>
           <Typography variant="h4" className={classes.title}>
            <Link to={'/help'} style={{textDecoration:'none',color:'white'}}>Puzlr</Link>
